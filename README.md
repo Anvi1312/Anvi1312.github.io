@@ -1,4 +1,4 @@
-# Yash Shah - Portfolio
+# Anvi Panchal - Portfolio
 
 This is the source code for Yash Shah's personal portfolio website.
 
