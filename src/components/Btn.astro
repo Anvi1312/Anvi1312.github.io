@@ -1,0 +1,8 @@
+---
+// A rounded pill link with a round icon on the right.
+import Icon from "./Icon.astro";
+interface Props { href: string; icon?: string; variant?: "dark" | "white" | "glass" | "line"; external?: boolean; download?: boolean }
+const { href, icon = "arrow", variant = "dark", external = false, download = false } = Astro.props;
+const cls = `btn${variant === "dark" ? "" : ` btn--${variant}`}`;
+---
+<a class={cls} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener" : undefined} download={download || undefined}><slot />{variant !== "line" && <span class="btn__dot"><Icon name={icon} size={15} stroke={2.2} /></span>}</a>

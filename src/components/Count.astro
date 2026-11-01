@@ -1,0 +1,14 @@
+---
+// A number that counts up from zero once, the first time it scrolls into view.
+// The script that runs it is in Base.astro, and it follows Yash's site.
+// Screen readers read only the hidden copy, which always holds the final value.
+// Without JavaScript, or with reduced motion, the final value simply shows.
+// Only the first number in the text counts, so "INR 1.5 lakh" counts the 1.5.
+interface Props { value: string }
+const { value } = Astro.props;
+const m = value.match(/\d[\d,]*(?:\.\d+)?%?/);
+const num = m ? m[0] : "";
+const before = m ? value.slice(0, m.index) : "";
+const after = m ? value.slice((m.index || 0) + num.length) : "";
+---
+{m ? <><span class="sr-only">{value}</span><span aria-hidden="true">{before}<span class="count" data-count={num}>{num}</span>{after}</span></> : value}

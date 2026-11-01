@@ -1,0 +1,20 @@
+---
+// The white bar at the top of inner pages.
+import Btn from "./Btn.astro";
+import { site } from "../data/site.js";
+interface Props { current?: string }
+const { current } = Astro.props;
+const links = [
+  { label: "Projects", href: "/#projects" },
+  { label: "Research", href: "/#research" },
+  { label: "Certificates", href: "/certificates" },
+  { label: "Contact", href: "#contact" },
+];
+---
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand__name">{site.name}</span><span class="brand__role">{site.role}</span></a>
+  <nav aria-label="Main">
+    {links.map((l) => <a href={l.href} aria-current={current === l.label ? "page" : undefined}>{l.label}</a>)}
+    <Btn href={site.resume} icon="download" variant="dark">My resume</Btn>
+  </nav>
+</header>

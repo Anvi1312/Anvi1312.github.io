@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import Topbar from "../../components/Topbar.astro";
+import DocCard from "../../components/DocCard.astro";
+import { categories, sortedDocuments } from "../../data/documents.js";
+
+const groups = categories
+  .map((c) => ({ ...c, docs: sortedDocuments.filter((d) => d.cat === c.id) }))
+  .filter((g) => g.docs.length);
+---
+<Base title="Certificates | Anvi Panchal" description="Every certificate, letter, news feature and photo from Anvi Panchal's internships, research, hackathons and courses.">
+  <Topbar slot="header" current="Certificates" />
+
+  <section class="section section--pink lines" aria-labelledby="certs-title">
+    <p class="tag-pill tag-pill--glass">Certificates</p>
+    <h1 id="certs-title" class="h-section" style="margin-top: 0.875rem; font-size: clamp(2rem, 4.4vw, 3.5rem)">Every certificate, in one place.</h1>
+    <p class="intro" style="margin-top: 0.75rem">Each one opens on its own page, with the original document or the issuer's own verification link.</p>
+    <nav class="filters" aria-label="Jump to a type">
+      {groups.map((g) => <a class="btn btn--line" href={`#${g.id}`} style="min-height: 2.5rem">{g.label} ({g.docs.length})</a>)}
+    </nav>
+  </section>
+
+  {groups.map((g, i) => (
+    <section class={i % 2 ? "section section--white" : "section"} id={g.id} aria-labelledby={`${g.id}-title`}>
+      <h2 id={`${g.id}-title`} class="h-sub" style="margin-bottom: 1.25rem">{g.label}</h2>
+      <div class="doc-grid">{g.docs.map((d) => <DocCard doc={d} />)}</div>
+    </section>
+  ))}
+</Base>

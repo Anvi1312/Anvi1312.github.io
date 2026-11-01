@@ -1,0 +1,227 @@
+---
+import "@fontsource/sora/400.css";
+import "@fontsource/sora/500.css";
+import "@fontsource/sora/600.css";
+import "@fontsource/sora/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  personSchema?: boolean;
+}
+const { title = site.title, description = site.description, image = "/og-image.jpg", noindex = false, personSchema = false } = Astro.props;
+
+const pathname = Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "/");
+const canonical = new URL(pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: site.url,
+  image: new URL("/images/anvi-panchal.webp", site.url).href,
+  jobTitle: "AI/ML and Full Stack Engineer",
+  email: `mailto:${site.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Ahmedabad", addressCountry: "IN" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "GLS University" },
+  sameAs: [site.linkedin, site.github],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#B4436C" />
+    <meta name="author" content={site.name} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Anvi Panchal, AI/ML and full stack engineer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {personSchema && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page" id="top">
+      <slot name="header" />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script>
+      // Sliders: the round buttons scroll the row by most of its width.
+      document.querySelectorAll<HTMLElement>("[data-slider]").forEach((slider) => {
+        const track = slider.querySelector<HTMLElement>(".slider__track");
+        const prev = slider.querySelector<HTMLButtonElement>("[data-prev]");
+        const next = slider.querySelector<HTMLButtonElement>("[data-next]");
+        if (!track || !prev || !next) return;
+        const step = () => Math.max(track.clientWidth * 0.85, 240);
+        const update = () => {
+          prev.disabled = track.scrollLeft <= 2;
+          next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+        };
+        prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+        next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+        track.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+      });
+
+      // Certificate filters: show only the cards of the chosen category.
+      document.querySelectorAll<HTMLElement>("[data-filters]").forEach((group) => {
+        const target = document.getElementById(group.dataset.filters || "");
+        if (!target) return;
+        const track = target.querySelector<HTMLElement>(".slider__track");
+        group.querySelectorAll<HTMLButtonElement>("button[data-filter]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const cat = btn.dataset.filter;
+            group.querySelectorAll("button[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+            target.querySelectorAll<HTMLElement>("[data-cat]").forEach((card) => {
+              card.hidden = cat !== "all" && card.dataset.cat !== cat;
+            });
+            if (track) {
+              track.scrollTo({ left: 0 });
+              track.dispatchEvent(new Event("scroll"));
+            }
+          });
+        });
+      });
+
+      // Close the menu after a link in it is chosen.
+      document.querySelectorAll<HTMLDetailsElement>("details.menu").forEach((menu) => {
+        menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => menu.removeAttribute("open")));
+      });
+
+      // Gentle motion, taken from Yash's site with the same timing, distance and easing.
+      // All of it is optional. Without JavaScript, or with reduced motion turned on,
+      // every section is visible and every number shows its final value straight away.
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!still && "IntersectionObserver" in window) {
+        document.documentElement.classList.add("motion");
+
+        // Fade things up as they scroll into view, once each. Only things that start below
+        // the first screen are hidden first, so the hero never waits and nothing blinks on load.
+        const targets = document.querySelectorAll<HTMLElement>(
+          ".section > .split, .section > .tag-pill, .section > .intro, .section > .h-section, .section > .h-sub, .section > .center, " +
+          ".flow, .stats-row > .plus-frame, .stats > li, .research-head, .wave, .papers > .paper, .research-foot, " +
+          "#skills > .h-sub, .skills > div, .project-row, .slider, .xp > li, .sih, .wins-grid > li, .filters, .two-col > .list-card, " +
+          ".facts, .feature-grid > *, .steps > li, .results > *, .gallery > figure, .stack-row, .next, " +
+          ".doc-page__view, .doc-page__info, .doc-grid > *, .footer__main, .footer__side",
+        );
+        const show = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              const el = e.target as HTMLElement;
+              el.classList.add("is-in");
+              show.unobserve(el);
+              // Once it has arrived, hand the element back to its normal styles.
+              const done = (ev: TransitionEvent) => {
+                if (ev.target !== el) return;
+                el.removeEventListener("transitionend", done);
+                el.classList.remove("reveal", "is-in");
+                el.style.removeProperty("--delay");
+              };
+              el.addEventListener("transitionend", done);
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px" },
+        );
+        const fold = window.innerHeight;
+        targets.forEach((el) => {
+          if (el.closest(".hero") || el.getBoundingClientRect().top < fold) return;
+          // Cards in the same row arrive one after another, 0.08 s apart.
+          const parent = el.parentElement;
+          const i = parent && parent.children.length > 1 ? Array.prototype.indexOf.call(parent.children, el) % 5 : 0;
+          el.style.setProperty("--delay", `${i * 0.08}s`);
+          el.classList.add("reveal");
+          show.observe(el);
+        });
+
+        // Count numbers up from zero once, the first time they appear, over 1.4 s with the
+        // same ease-out as Yash's site. Each number keeps its exact format while it counts:
+        // leading zeros, thousands commas, decimal places and the % sign.
+        const formatFor = (final: string) => {
+          const m = final.match(/^(\d[\d,]*)(?:\.(\d+))?(%?)$/);
+          if (!m) return null;
+          const whole = m[1].replace(/,/g, "");
+          const places = m[2] ? m[2].length : 0;
+          const target = Number(m[2] ? `${whole}.${m[2]}` : whole);
+          if (!Number.isFinite(target) || target <= 0) return null;
+          const commas = m[1].includes(",");
+          const zeros = whole.length > 1 && whole.startsWith("0") ? whole.length : 0;
+          return {
+            target,
+            print: (n: number) => {
+              const [a, b] = n.toFixed(places).split(".");
+              const int = commas ? Number(a).toLocaleString("en-US") : a.padStart(zeros, "0");
+              return int + (b ? `.${b}` : "") + m[3];
+            },
+          };
+        };
+        const count = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              count.unobserve(e.target);
+              const el = e.target as HTMLElement;
+              const final = el.dataset.count || "";
+              const f = formatFor(final);
+              if (!f) continue;
+              const start = performance.now();
+              const ms = 1400;
+              const tick = (now: number) => {
+                const t = Math.min(1, (now - start) / ms);
+                const eased = 1 - Math.pow(1 - t, 3);
+                el.textContent = f.print(f.target * eased);
+                if (t < 1) requestAnimationFrame(tick);
+                else { el.textContent = final; el.style.removeProperty("min-width"); }
+              };
+              requestAnimationFrame(tick);
+            }
+          },
+          { threshold: 0.6 },
+        );
+        document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+          const f = formatFor(el.dataset.count || "");
+          if (!f) return;
+          // Hold the final width while the number counts, so the text around it never moves.
+          el.style.minWidth = `${el.getBoundingClientRect().width / parseFloat(getComputedStyle(el).fontSize)}em`;
+          // Numbers below the first screen wait at zero until they are reached.
+          if (el.getBoundingClientRect().top >= fold) el.textContent = f.print(0);
+          count.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

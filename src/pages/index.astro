@@ -1,0 +1,380 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Plus from "../components/Plus.astro";
+import Btn from "../components/Btn.astro";
+import Slider from "../components/Slider.astro";
+import DocCard from "../components/DocCard.astro";
+import Wave from "../components/Wave.astro";
+import GrainField from "../components/GrainField.astro";
+import Count from "../components/Count.astro";
+import {
+  site, nav, hero, story, stats, research, path, featured, moreWork, projects,
+  experience, education, sih, wins, activities, press,
+} from "../data/site.js";
+import { categories, sortedDocuments, docBySlug, docLink } from "../data/documents.js";
+import { imageSize } from "../data/imageSize.js";
+
+const projectBySlug = (slug) => projects.find((p) => p.slug === slug);
+const usedCats = categories.filter((c) => sortedDocuments.some((d) => d.cat === c.id));
+const bold = (names) => names.replace("Anvi Panchal", "<strong>Anvi Panchal</strong>");
+const pad = (i) => String(i + 1).padStart(2, "0");
+// Results that are a plain number, such as "03", count up. Text results such as "5th of 44" do not.
+const plainNumber = (v) => /^\d[\d,]*(?:\.\d+)?%?$/.test(v);
+// The SIH 2025 Grand Finale photo sits beside the numbers once it is on the site.
+const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); return d && d.preview ? d : null; })();
+---
+<Base personSchema>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <header class="hero__bar">
+      <a class="brand" href="/"><span class="brand__name">{site.name}</span><span class="brand__role">{site.role}</span></a>
+      <div class="hero__actions">
+        <Btn href="#contact" icon="mail" variant="glass">Let's talk</Btn>
+        <Btn href={site.resume} icon="download" variant="glass">My resume</Btn>
+        <details class="menu">
+          <summary aria-label="Open the menu"><Icon name="menu" size={18} stroke={2.2} /></summary>
+          <nav class="menu__panel" aria-label="Main">
+            {nav.map((n) => <a href={n.href.replace("/#", "#")}>{n.label}</a>)}
+            <a href="/certificates">All certificates</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <h1 id="hero-title" class="hero__title">{hero.headline[0]}<br />{hero.headline[1]}</h1>
+
+    <div class="hero__row">
+      <div class="glass">
+        <Plus />
+        <p>{hero.left}</p>
+        <Btn href="#contact">Let's talk</Btn>
+      </div>
+      <div class="hero__portrait">
+        <img src="/images/anvi-panchal.webp" alt={hero.portraitAlt} width="820" height="948" fetchpriority="high" decoding="async" />
+      </div>
+      <div class="glass">
+        <Plus />
+        <p>{hero.right}</p>
+        <div class="socials">
+          <a class="icon-circle" href={site.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          <a class="icon-circle" href={site.github} target="_blank" rel="noopener" aria-label="GitHub"><Icon name="code" /></a>
+          <a class="icon-circle" href={`mailto:${site.email}`} aria-label="Email"><Icon name="mail" /></a>
+        </div>
+      </div>
+    </div>
+    <span class="hero__tick" aria-hidden="true"></span>
+  </section>
+
+  <!-- Tabs -->
+  <nav class="tabs" aria-label="Sections">
+    {nav.slice(0, 6).map((n) => <a href={n.href.replace("/#", "#")}><span aria-hidden="true">+</span>{n.label}</a>)}
+  </nav>
+
+  <!-- My story -->
+  <section class="section" id="story" aria-labelledby="story-title">
+    <img class="globe" src="/images/globe-dots.webp" alt="" aria-hidden="true" width="460" height="460" />
+    <div class="split">
+      <div class="split__head"><h2 id="story-title" class="tag-pill">My story</h2></div>
+      <div class="split__body">
+        <p class="lede">{story.text} <span class="muted">{story.muted}</span></p>
+        <p class="label" style="margin-top: 2rem">Where my work has been</p>
+        <ul class="orgs">
+          {story.organisations.map(([name, shape]) => <li><i class={shape === "square" ? "sq" : ""} aria-hidden="true"></i>{name}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <p class="flow">
+      <span class="flow__pill flow__pill--accent">{story.pills[0]}</span>
+      <span class="flow__sep" aria-hidden="true">»</span>
+      <span class="flow__pill flow__pill--image"><img src="/images/projects/urja-setu-dashboard.webp" alt="" aria-hidden="true" width="800" height="500" loading="lazy" /><span>{story.pills[1]}</span></span>
+      <span class="flow__sep" aria-hidden="true">»</span>
+      <span class="flow__pill flow__pill--dark">{story.pills[2]}</span>
+    </p>
+
+    <div class="stats-row">
+      <div class="plus-frame">
+        <Plus />
+        {teamPhoto ? (
+          <img src={teamPhoto.preview} alt="Our team at the Smart India Hackathon 2025 Grand Finale" loading="lazy" {...imageSize(teamPhoto.preview)} />
+        ) : (
+          <img src="/images/projects/studysetu-analytics.webp" alt="StudySetu teacher analytics, showing mastery and misconceptions for each topic" width="1200" height="760" loading="lazy" />
+        )}
+      </div>
+      <ul class="stats">
+        {stats.map((s) => (
+          <li><span class="stats__value"><Count value={s.value} /></span><span class="bracket">[ {s.label} ]</span><span class="stats__text">{s.text}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Research: both papers always visible, never in a slider -->
+  <section class="section section--pink lines" id="research" aria-labelledby="research-title">
+    <div class="research-head">
+      <div>
+        <span class="tag-pill tag-pill--glass">Research</span>
+        <h2 id="research-title">{research.title}</h2>
+        <p class="intro">{research.intro}</p>
+      </div>
+    </div>
+    <Wave />
+    <div class="papers">
+      {research.papers.map((p, i) => {
+        const noteLink = p.noteDoc && docLink(p.noteDoc);
+        return (
+          <article class="paper" aria-labelledby={`paper-${i}`}>
+            <div class="paper__top">
+              <span class={`paper__role paper__role--${i === 0 ? "first" : "second"}`}>{p.role}</span>
+              <span class="paper__status">{p.status}</span>
+            </div>
+            <h3 id={`paper-${i}`}>{p.title}</h3>
+            <p class="paper__authors" set:html={bold(p.authors)} />
+            <p class="paper__venue">{p.venue}</p>
+            <p class="paper__text">{p.text}</p>
+            <div class="paper__metrics">
+              {p.metrics.map(([v, t]) => <div><strong><Count value={v} /></strong><span>{t}</span></div>)}
+            </div>
+            {p.note && (
+              <p class="paper__note">{p.note}{noteLink && <> <a href={noteLink}>See the certificate</a></>}</p>
+            )}
+            <div class="paper__links">
+              <a class="arrow-link" href={p.link.href} target="_blank" rel="noopener">{p.link.label}<Icon name="arrow" size={14} stroke={2.2} /></a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+    <div class="research-foot">
+      <span>{research.footnote}</span>
+      <span>{research.third}</span>
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section class="section section--fade lines" id="path" aria-labelledby="path-title">
+    <div class="split">
+      <div class="split__head"><h2 id="path-title" class="tag-pill">How I work</h2></div>
+      <div class="split__body">
+        <p class="lede">{path.text} <span class="muted">{path.muted}</span></p>
+        <div style="margin-top: 1.5rem"><Btn href="#contact">Let's talk now</Btn></div>
+      </div>
+    </div>
+
+    <div id="skills" class="skills-block">
+      <h3 class="h-sub" style="margin: clamp(2.5rem, 5vw, 4rem) 0 1rem">Skills and tools I use</h3>
+      <div class="skills">
+        {path.skills.map(([group, items]) => (
+          <div><h3>{group}</h3><ul class="chips">{items.map((t) => <li>{t}</li>)}</ul></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured projects -->
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title" class="tag-pill">Featured projects</h2>
+    <p class="intro" style="margin-top: 0.75rem">Each project shows how I approach a real problem, from the model underneath to the screen on top.</p>
+
+    {featured.map((f, i) => (
+      <article class="project-row" aria-labelledby={`proj-${f.slug}`}>
+        <span class="project-row__num">#{i + 1}</span>
+        <div class="project-row__body">
+          <h3 id={`proj-${f.slug}`}><a href={`/projects/${f.slug}`}>{f.title}</a></h3>
+          <span class="project-row__badge">{f.badge}</span>
+          <p class="project-row__lead">{f.lead}</p>
+          <ul class="ticks">{f.points.map((t) => <li>{t}</li>)}</ul>
+          <ul class="chips">{f.tags.map((t) => <li>{t}</li>)}</ul>
+          <div class="project-row__links">
+            <a class="arrow-link" href={`/projects/${f.slug}`}>View details<span class="sr-only">, {f.title}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
+            {(projectBySlug(f.slug)?.homeLinks || []).map((l) => (
+              <a class="arrow-link arrow-link--quiet" href={l.href} target="_blank" rel="noopener">{l.label}<span class="sr-only">, {f.title}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
+            ))}
+          </div>
+        </div>
+        <div class="project-row__art plus-frame">
+          <Plus />
+          {f.art === "grains" && (
+            <div class="art-grains"><GrainField /><p>How the device sees sand. Illustration.</p></div>
+          )}
+          {f.art === "columns" && (
+            <div class="art-columns" aria-hidden="true">
+              <div><b>English</b><i style="width: 92%"></i><i style="width: 80%"></i><i style="width: 88%"></i><i style="width: 60%"></i><i style="width: 84%"></i><i style="width: 70%"></i></div>
+              <div><b>Your language</b><i style="width: 86%"></i><em>technical term</em><i style="width: 90%"></i><i style="width: 66%"></i><i style="width: 78%"></i></div>
+            </div>
+          )}
+          {f.art === "collage" && (
+            <div class="art-collage">
+              <img src="/images/projects/urja-setu-dashboard.webp" alt="Urja Setu admin dashboard with a map of unresolved reports" width="1200" height="750" loading="lazy" />
+              <img src="/images/projects/urja-setu-citizen.webp" alt="Urja Setu citizen portal listing reports and their status" width="1200" height="750" loading="lazy" />
+            </div>
+          )}
+          {f.art === "score" && (
+            <div class="art-score"><div><small>Capstone score</small><strong>99/100</strong><span>Capstone Project I and II</span></div></div>
+          )}
+        </div>
+      </article>
+    ))}
+
+    <div class="center" style="margin-top: 0.75rem"><Btn href="#contact">Let's work on your next project</Btn></div>
+
+    <div style="margin-top: clamp(2.5rem, 5vw, 4rem)">
+      <Slider label="More things I've made">
+        <div slot="head">
+          <h3 class="h-sub">More things I've made</h3>
+          <p class="intro" style="margin-top: 0.375rem">Side projects, hardware and research in progress.</p>
+        </div>
+        {moreWork.map((m) => {
+          const p = m.page ? projectBySlug(m.page) : null;
+          const name = p ? p.name : m.name;
+          const text = p ? p.lead : m.text;
+          const links = [
+            p && { href: `/projects/${p.slug}`, label: "View details" },
+            !p && m.href && { href: m.href, label: m.hrefLabel, external: true },
+            m.doc && docLink(m.doc) && { href: docLink(m.doc), label: "Certificate" },
+          ].filter(Boolean);
+          return (
+            <article class="work-card">
+              {m.img ? (
+                <span class="work-card__img"><img src={m.img} alt={m.alt} loading="lazy" width="800" height="600" /></span>
+              ) : (
+                <span class="work-card__shape" aria-hidden="true"><i></i><i></i></span>
+              )}
+              <div class="work-card__body">
+                <span class="bracket">[ {m.tag} ]</span>
+                <h3>{name}</h3>
+                <p>{text}</p>
+                {links.length > 0 && (
+                  <div class="work-card__links">
+                    {links.map((l) => (
+                      <a class="arrow-link" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener" : undefined}>
+                        {l.label}<span class="sr-only">, {name}</span><Icon name="arrow" size={14} stroke={2.2} />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </Slider>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section section--white lines" id="experience" aria-labelledby="xp-title">
+    <div class="split" style="margin-bottom: 1.75rem">
+      <div class="split__head"><h2 id="xp-title" class="tag-pill">Experience</h2></div>
+      <div class="split__body">
+        <p class="lede">Five internships, from research at ISRO <span class="muted">to remote engineering roles with teams in the UK and Dubai.</span></p>
+      </div>
+    </div>
+    <ol class="xp">
+      {experience.map((x) => {
+        const link = docLink(x.doc);
+        return (
+          <li>
+            <span class="xp__dates">{x.dates}</span>
+            <div class="xp__main">
+              <h3>{x.role}</h3>
+              <p class="xp__org">{x.org}, <span>{x.place}</span></p>
+              <ul class="ticks">{x.points.map((t) => <li>{t}</li>)}</ul>
+              <ul class="chips">{x.tags.map((t) => <li>{t}</li>)}</ul>
+            </div>
+            {link && <a class="arrow-link xp__link" href={link}>View certificate<span class="sr-only">, {x.org}</span><Icon name="arrow" size={14} stroke={2.2} /></a>}
+          </li>
+        );
+      })}
+      <li>
+        <span class="xp__dates">{education.dates}</span>
+        <div class="xp__main">
+          <h3>{education.role}</h3>
+          <p class="xp__org">{education.org}, <span>{education.text}</span></p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Wins -->
+  <section class="section section--dark" id="wins" aria-labelledby="wins-title">
+    <div class="split split--rule">
+      <div class="split__head"><h2 id="wins-title" class="tag-pill tag-pill--dark">Wins and recognition</h2></div>
+      <p class="split__body intro">The moments I am proudest of, from a national hackathon win to presenting our research.</p>
+    </div>
+
+    <div class="sih">
+      <div class="sih__copy">
+        <span class="tag-pill tag-pill--glass">{sih.pill}</span>
+        <h3>{sih.title}</h3>
+        <p>{sih.text}</p>
+        {docLink(sih.doc) && <Btn href={docLink(sih.doc)} variant="white">See the certificate</Btn>}
+      </div>
+      <div class="sih__stats">
+        {sih.stats.map(([v, t]) => <div><strong><Count value={v} /></strong><span>{t}</span></div>)}
+      </div>
+    </div>
+
+    <ol class="wins-grid" aria-label="Other wins and recognition">
+      {wins.map((w, i) => {
+        const link = w.doc ? docLink(w.doc) : null;
+        return (
+          <li class="win-card">
+            <div class="win-card__box">
+              <strong class="win-card__result">{plainNumber(w.result) ? <Count value={w.result} /> : w.result}</strong>
+              <h3>{w.title}</h3>
+              <span class="win-card__line">{w.line}</span>
+              {link && <a class="win-card__link" href={link}>Certificate<span class="sr-only">, {w.title}</span><Icon name="arrow" size={13} stroke={2.2} /></a>}
+            </div>
+            <div class="win-card__num" aria-hidden="true">{pad(i)}</div>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+
+  <!-- Beyond the classroom -->
+  <section class="section section--white" aria-labelledby="beyond-title">
+    <h2 id="beyond-title" class="tag-pill">Beyond the classroom</h2>
+    <div class="two-col" style="margin-top: 1.25rem">
+      <div class="list-card">
+        <h3>Leadership and activities</h3>
+        <ul>
+          {activities.map((a) => {
+            const link = a.doc && docLink(a.doc);
+            return <li><div><b>{a.title}</b><span>{a.text}</span></div>{link && <a href={link}>Certificate<span class="sr-only">, {a.title}</span></a>}</li>;
+          })}
+        </ul>
+      </div>
+      <div class="list-card">
+        <h3>In the news</h3>
+        <ul>
+          {press.map((a) => {
+            const link = a.doc && docLink(a.doc);
+            return <li><div><b>{a.title}</b><span>{a.text}</span></div>{link && <a href={link}>Read it<span class="sr-only">, {a.title}</span></a>}</li>;
+          })}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates -->
+  <section class="section section--pink lines" id="certificates" aria-labelledby="certs-title">
+    <div class="split">
+      <div class="split__head"><h2 id="certs-title" class="tag-pill tag-pill--glass">Certificates</h2></div>
+      <div class="split__body">
+        <p class="lede">The proof behind the work above. <span class="muted">Every certificate opens on its own page, with the original document or the issuer's own verification link.</span></p>
+      </div>
+    </div>
+    <div class="filters" data-filters="cert-slider" role="group" aria-label="Show certificates by type">
+      <button type="button" data-filter="all" aria-pressed="true">All ({sortedDocuments.length})</button>
+      {usedCats.map((c) => <button type="button" data-filter={c.id} aria-pressed="false">{c.label}</button>)}
+    </div>
+    <Slider label="Certificates" id="cert-slider">
+      <p slot="head" class="label">{sortedDocuments.length} documents</p>
+      {sortedDocuments.map((d) => <DocCard doc={d} filterable />)}
+    </Slider>
+    <div style="margin-top: 1.125rem"><Btn href="/certificates" variant="white">See all certificates</Btn></div>
+  </section>
+
+</Base>

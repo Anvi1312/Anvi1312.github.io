@@ -1,0 +1,27 @@
+---
+// One certificate or document as a card. It shows the thumbnail when there is one,
+// and a clean text card when the document is only an issuer link.
+import Icon from "./Icon.astro";
+import { categoryLabel } from "../data/documents.js";
+import { imageSize } from "../data/imageSize.js";
+interface Props { doc: any; filterable?: boolean }
+const { doc: d, filterable = false } = Astro.props;
+const isPhoto = d.kind === "photo";
+---
+<a class="doc-card" href={d.href} data-cat={filterable ? d.cat : undefined}>
+  {d.thumb ? (
+    <span class={`doc-card__img${isPhoto ? " doc-card__img--photo" : ""}`}>
+      <img src={d.thumb} alt={`${d.short}, ${isPhoto ? "photo" : "document"}`} loading="lazy" decoding="async" {...imageSize(d.thumb)} />
+    </span>
+  ) : (
+    <span class="doc-card__text">
+      <em>{categoryLabel(d.cat)}</em>
+      <strong>{d.short}</strong>
+      <small>{d.verify ? <><Icon name="shield" size={14} />Verified by the issuer</> : <><Icon name="file" size={14} />Certificate</>}</small>
+    </span>
+  )}
+  <span class="doc-card__meta">
+    <b>{d.short}</b>
+    <span>{[d.issuer, d.date].filter(Boolean).join(", ")}</span>
+  </span>
+</a>

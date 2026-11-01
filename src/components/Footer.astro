@@ -1,0 +1,47 @@
+---
+// The dark contact card at the bottom of every page.
+import Btn from "./Btn.astro";
+import Icon from "./Icon.astro";
+import { site, footer } from "../data/site.js";
+---
+<footer class="footer" id="contact">
+  <div class="footer__grid">
+    <div class="footer__main">
+      <div class="footer__copy">
+        <div>
+          <p class="footer__name">{site.name}</p>
+          <p class="footer__line">{footer.line}</p>
+          <p class="footer__avail">Available for<span>{site.availability}</span></p>
+          <Btn href={site.resume} icon="download" variant="white">My resume</Btn>
+        </div>
+        <div class="footer__mail">
+          <p>{footer.cta}</p>
+          <a href={`mailto:${site.email}`}><Icon name="mail" size={18} />{site.email}</a>
+        </div>
+      </div>
+      <div class="footer__photo">
+        <img src="/images/anvi-panchal.webp" alt="" aria-hidden="true" width="820" height="948" loading="lazy" decoding="async" />
+        <a class="badge-ring" href={`mailto:${site.email}`} aria-label="Let's talk now, email Anvi">
+          <svg class="ring" viewBox="0 0 132 132" aria-hidden="true"><path id="talk-ring" d="M66 66 m-48 0 a48 48 0 1 1 96 0 a48 48 0 1 1 -96 0" fill="none"></path><text font-family="Sora, sans-serif" font-size="12.5" font-weight="600" letter-spacing="2.2" fill="currentColor"><textPath href="#talk-ring">LET'S TALK NOW • LET'S TALK NOW •</textPath></text></svg>
+          <span><Icon name="arrow" size={26} stroke={2.2} /></span>
+        </a>
+      </div>
+    </div>
+    <div class="footer__side">
+      <div>
+        <h2>Find me online</h2>
+        <p>{footer.online}</p>
+      </div>
+      <div class="footer__links">
+        <a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={site.github} target="_blank" rel="noopener">GitHub</a>
+        <a href="/certificates">Certificates</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
+    <nav aria-label="Footer"><a href="/#projects">Projects</a><a href="/#research">Research</a><a href="/certificates">Certificates</a><a href="#top">Back to top</a></nav>
+  </div>
+  <p class="footer__giant" aria-hidden="true">{site.name}</p>
+</footer>

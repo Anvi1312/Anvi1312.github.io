@@ -1,0 +1,170 @@
+---
+import Base from "../../layouts/Base.astro";
+import Topbar from "../../components/Topbar.astro";
+import Icon from "../../components/Icon.astro";
+import Plus from "../../components/Plus.astro";
+import Btn from "../../components/Btn.astro";
+import Slider from "../../components/Slider.astro";
+import DocCard from "../../components/DocCard.astro";
+import GrainField from "../../components/GrainField.astro";
+import { projects } from "../../data/site.js";
+import { documents } from "../../data/documents.js";
+
+export function getStaticPaths() {
+  const pages = projects.filter((p) => p.sections);
+  return pages.map((project, i) => ({
+    params: { slug: project.slug },
+    props: { project, index: i, next: pages[(i + 1) % pages.length] },
+  }));
+}
+
+const { project: p, index, next } = Astro.props;
+const number = String(index + 1).padStart(2, "0");
+const title = `${p.name} | Anvi Panchal`;
+const description = `${p.name}. ${p.lead}`;
+const hero = p.hero || { kind: "metric" };
+const firstLink = (p.links || [])[0];
+const hasSteps = p.sections.some((s) => s.kind === "steps");
+const related = documents.filter((d) => d.project === p.slug);
+let n = 0;
+const eyebrow = (text) => `${String(++n).padStart(2, "0")}, ${text}`;
+---
+<Base title={title} description={description}>
+  <Topbar slot="header" current="Projects" />
+
+  <section class="p-hero" aria-labelledby="project-title">
+    <div class="p-hero__copy">
+      <a class="back" href="/#projects"><Icon name="left" size={16} />All projects</a>
+      <p class="p-hero__eyebrow">Project {number}, {p.category}</p>
+      <h1 id="project-title">{p.name}</h1>
+      <p class="p-hero__lead">{p.lead}</p>
+      {p.badge && <p class="p-hero__badge"><span class="tag-pill tag-pill--glass">{p.badge}</span></p>}
+      <div class="p-hero__actions">
+        {firstLink && <Btn href={firstLink.href} external variant="white">{firstLink.label}</Btn>}
+        {hasSteps && <Btn href="#how" variant={firstLink ? "glass" : "white"} icon="right">How it works</Btn>}
+      </div>
+    </div>
+    <div class="p-hero__art plus-frame">
+      <Plus />
+      {hero.kind === "metric" ? (
+        <div class="metric-card"><small>{p.metric.eyebrow}</small><strong>{p.metric.value}</strong><span>{p.metric.caption}</span></div>
+      ) : (
+        <figure class={`shot${hero.kind === "grains" ? " shot--grains" : ""}${hero.portrait ? " shot--portrait" : ""}${hero.small ? " shot--small" : ""}`} style="margin: 0">
+          {hero.kind === "grains" ? <GrainField /> : <img src={hero.src} alt={hero.alt} loading="eager" decoding="async" />}
+          <figcaption><span>{hero.caption}</span>{hero.note && <span>{hero.note}</span>}</figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
+
+  {p.facts && (
+    <dl class="facts">
+      {p.facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+    </dl>
+  )}
+
+  {p.sections.map((s, i) => {
+    const tone = i % 2 === 0 ? "section" : "section section--white";
+    if (s.kind === "text") return (
+      <section class={tone}>
+        <div class="split">
+          <div class="split__head"><p class="tag-pill">{eyebrow(s.eyebrow)}</p></div>
+          <div class="split__body"><h2 class="h-section">{s.title}</h2><div class="paras" style="margin-top: 1.125rem">{s.paras.map((t) => <p>{t}</p>)}</div></div>
+        </div>
+      </section>
+    );
+    if (s.kind === "cards") return (
+      <section class={tone}>
+        <div class="split">
+          <div class="split__head"><p class="tag-pill">{eyebrow(s.eyebrow)}</p></div>
+          <div class="split__body"><h2 class="h-section">{s.title}</h2>{s.intro && <p class="paras" style="margin-top: 0.875rem">{s.intro}</p>}</div>
+        </div>
+        <div class="feature-grid">
+          {s.cards.map((c) => (
+            <article class="feature"><span class="feature__icon"><Icon name={c.icon} size={26} stroke={1.8} /></span><h3>{c.title}</h3><p>{c.text}</p></article>
+          ))}
+        </div>
+      </section>
+    );
+    if (s.kind === "steps") return (
+      <section class={`${tone} lines`} id="how">
+        <div class="split" style="margin-bottom: 1.5rem">
+          <div class="split__head"><p class="tag-pill">{eyebrow(s.eyebrow)}</p></div>
+          <div class="split__body"><h2 class="h-section">{s.title}</h2></div>
+        </div>
+        <ol class="steps">
+          {s.steps.map((st, j) => <li><span class="bracket">[ Step {j + 1} ]</span><h3>{st.title}</h3><p>{st.text}</p></li>)}
+        </ol>
+      </section>
+    );
+    if (s.kind === "results") return (
+      <section class="section section--pink lines">
+        <p class="tag-pill tag-pill--glass">{eyebrow(s.eyebrow)}</p>
+        <h2 class="h-section" style="margin-top: 0.875rem">{s.title}</h2>
+        <div class="results">
+          {s.items.map((r) => (
+            <div class={`result${r.style === "solid" ? " result--solid" : ""}`}>
+              {r.value && <strong>{r.value}</strong>}
+              <p>{r.text}</p>
+              {r.link && <a class="arrow-link" href={r.link.href} target="_blank" rel="noopener">{r.link.label}<Icon name="arrow" size={14} stroke={2.2} /></a>}
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+    if (s.kind === "list") return (
+      <section class={tone}>
+        <div class="split">
+          <div class="split__head"><p class="tag-pill">{eyebrow(s.eyebrow)}</p></div>
+          <div class="split__body">
+            <h2 class="h-section">{s.title}</h2>
+            <ul class="list-plain" style="margin-top: 1.125rem">{s.items.map(([a, b]) => <li><strong>{a}</strong> {b}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+    );
+    if (s.kind === "gallery") return (
+      <section class={tone}>
+        <p class="tag-pill">{eyebrow(s.eyebrow)}</p>
+        <h2 class="h-section" style="margin-top: 0.875rem">{s.title}</h2>
+        <div class={`gallery${s.portrait ? " gallery--portrait" : ""}`}>
+          {s.images.map((im) => <figure><img src={im.src} alt={im.alt} loading="lazy" decoding="async" /><figcaption>{im.caption}</figcaption></figure>)}
+        </div>
+      </section>
+    );
+    return null;
+  })}
+
+  {related.length > 0 && (
+    <section class="section section--pink lines" aria-label="Certificates for this project">
+      <Slider label={`Certificates for ${p.name}`}>
+        <div slot="head">
+          <p class="tag-pill tag-pill--glass">Proof</p>
+          <h2 class="h-section" style="margin-top: 0.75rem">Certificates and news for {p.name}</h2>
+        </div>
+        {related.map((d) => <DocCard doc={d} />)}
+      </Slider>
+    </section>
+  )}
+
+  <section class="stack-row" aria-label="Built with">
+    <p class="label">Built with</p>
+    <ul class="chips">{p.stack.map((t) => <li>{t}</li>)}</ul>
+  </section>
+
+  {(p.links || []).length > 1 && (
+    <section class="stack-row" aria-label="Links">
+      <p class="label">Links</p>
+      <div class="chips">{p.links.map((l) => <a class="btn btn--line" href={l.href} target="_blank" rel="noopener">{l.label}</a>)}</div>
+    </section>
+  )}
+
+  <a class="next" href={`/projects/${next.slug}`}>
+    <span>
+      <small>Next project</small>
+      <strong>{next.name}</strong>
+      <span class="next__lead">{next.lead}</span>
+    </span>
+    <span class="next__go" aria-hidden="true"><Icon name="right" size={26} /></span>
+  </a>
+</Base>

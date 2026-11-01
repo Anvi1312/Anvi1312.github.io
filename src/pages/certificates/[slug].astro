@@ -1,0 +1,72 @@
+---
+import Base from "../../layouts/Base.astro";
+import Topbar from "../../components/Topbar.astro";
+import Icon from "../../components/Icon.astro";
+import Plus from "../../components/Plus.astro";
+import Btn from "../../components/Btn.astro";
+import Slider from "../../components/Slider.astro";
+import DocCard from "../../components/DocCard.astro";
+import { documents, categoryLabel } from "../../data/documents.js";
+import { projects } from "../../data/site.js";
+import { imageSize } from "../../data/imageSize.js";
+
+export function getStaticPaths() {
+  return documents.map((doc) => ({ params: { slug: doc.slug }, props: { doc } }));
+}
+
+const { doc: d } = Astro.props;
+const project = d.project ? projects.find((p) => p.slug === d.project && p.sections) : null;
+const more = documents.filter((x) => x.cat === d.cat && x.slug !== d.slug);
+const image = d.preview || d.thumb;
+const isPhoto = d.kind === "photo";
+const fileLabel = isPhoto ? "Open the full photo" : d.kind === "article" ? "Open the article" : "Open the certificate";
+const title = `${d.short} | Anvi Panchal`;
+const description = `${d.title}. ${d.issuer}${d.date ? `, ${d.date}` : ""}. ${d.about}`;
+---
+<Base title={title} description={description} image={d.preview || "/og-image.jpg"}>
+  <Topbar slot="header" current="Certificates" />
+
+  <section class="section" aria-labelledby="doc-title">
+    <a class="back" href="/certificates" style="color: var(--muted)"><Icon name="left" size={16} />All certificates</a>
+    <div class="doc-page" style="margin-top: 0.875rem">
+      <div class="doc-page__view plus-frame">
+        <Plus />
+        {image ? (
+          <a class="frame" href={d.file || d.verify} target={d.file ? undefined : "_blank"} rel={d.file ? undefined : "noopener"} style="display: block">
+            <img src={image} alt={`${d.title}, ${isPhoto ? "photo" : "page one of the document"}`} decoding="async" {...imageSize(image)} />
+          </a>
+        ) : (
+          <div class="doc-card__text">
+            <em>{categoryLabel(d.cat)}</em>
+            <strong>{d.title}</strong>
+            <small><Icon name="shield" size={14} />Verified by {d.issuer}</small>
+          </div>
+        )}
+      </div>
+      <div class="doc-page__info">
+        <p><span class="tag-pill">{categoryLabel(d.cat)}</span></p>
+        <h1 id="doc-title">{d.title}</h1>
+        <p class="doc-page__about">{d.about}</p>
+        <dl>
+          <div><dt>Issued by</dt><dd>{d.issuer}</dd></div>
+          {d.date && <div><dt>Date</dt><dd>{d.date}</dd></div>}
+          {project && <div><dt>Project</dt><dd><a href={`/projects/${project.slug}`}>{project.name}</a></dd></div>}
+        </dl>
+        <div class="doc-page__actions">
+          {d.file && <Btn href={d.file} icon={isPhoto ? "image" : "file"}>{fileLabel}</Btn>}
+          {d.verify && <Btn href={d.verify} icon="shield" variant={d.file ? "line" : "dark"} external>Verify with the issuer</Btn>}
+        </div>
+        {d.file && d.redacted && <p class="doc-page__note">Some personal details are covered on the copy shown here.</p>}
+      </div>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="section section--pink lines" aria-label={`More ${categoryLabel(d.cat).toLowerCase()}`}>
+      <Slider label={`More ${categoryLabel(d.cat).toLowerCase()}`}>
+        <h2 slot="head" class="h-section">More {categoryLabel(d.cat).toLowerCase()}</h2>
+        {more.map((x) => <DocCard doc={x} />)}
+      </Slider>
+    </section>
+  )}
+</Base>
