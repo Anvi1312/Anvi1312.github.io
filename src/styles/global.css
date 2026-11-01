@@ -66,6 +66,22 @@
   --blue-mist: #dce6ff;     /* the light blue at the bottom of the hero and Research */
   --hero-gradient: linear-gradient(180deg, var(--pink-1) 0%, var(--pink-2) 35%, var(--lilac) 70%, var(--blue-mist) 100%);
   --research-gradient: linear-gradient(180deg, var(--pink-2) 0%, var(--blue-mist) 100%);
+
+  /* The document viewer (components/DocViewer.astro) takes its colours from these. */
+  --dv-accent: var(--accent);
+  --dv-ink: var(--ink);
+  --dv-muted: var(--muted);
+  --dv-surface: var(--white);
+  --dv-line: var(--border);
+  --dv-control: var(--pill);
+  --dv-control-ink: var(--white);
+  --dv-backdrop: rgb(var(--dark-rgb) / 0.86);
+  --dv-shadow: var(--plum-rgb);
+  --dv-glass: rgb(var(--white-rgb) / 0.1);
+  --dv-glass-strong: rgb(var(--white-rgb) / 0.2);
+  --dv-glass-line: rgb(var(--white-rgb) / 0.28);
+  --dv-focus-dark: var(--petal);
+  --dv-tilt: 0deg;
   --pink-grid: rgb(var(--accent-rgb) / 0.1);
   --glass-bg: rgb(var(--white-rgb) / 0.45);
   --glass-btn: rgb(var(--white-rgb) / 0.55);
@@ -546,6 +562,12 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .filters button[aria-pressed="true"] { background: var(--accent); color: var(--white); border-color: var(--accent); }
 .doc-card { display: flex; flex-direction: column; gap: 0.625rem; text-decoration: none; color: var(--ink); height: 100%; }
 .doc-card[hidden] { display: none; }
+/* A multi-page document: a subtle edge of stacked paper behind the thumbnail, and its page count. */
+.doc-card__img--pages img {
+  box-shadow: 0 0 0 1px rgb(var(--plum-rgb) / 0.1), 0.3125rem 0.3125rem 0 -0.0625rem var(--white), 0.3125rem 0.3125rem 0 0 rgb(var(--plum-rgb) / 0.16),
+    0.625rem 0.625rem 0 -0.125rem var(--white), 0.625rem 0.625rem 0 -0.0625rem rgb(var(--plum-rgb) / 0.13), 0 0.75rem 1.5rem -0.875rem rgb(var(--plum-rgb) / 0.5);
+}
+.doc-card__pages { position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.125rem 0.5rem; border-radius: 62.4375rem; background: var(--pill); color: var(--white); font-size: 0.75rem; font-weight: 600; line-height: 1.5; }
 .doc-card__img {
   position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; min-height: 0; padding: 7% 8%;
   background: linear-gradient(160deg, var(--card) 0%, var(--tint) 100%); border-radius: 0.5rem; box-shadow: 0 1rem 1.875rem -1.375rem rgb(var(--plum-rgb) / 0.6); overflow: hidden;

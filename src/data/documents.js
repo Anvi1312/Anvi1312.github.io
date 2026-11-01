@@ -24,6 +24,7 @@
 //   featured  shown first on the home page
 //   kind      "photo" for event photos, "article" for news, otherwise left out
 //   redacted  true when personal details are covered on the published copy
+//   pages     every page of a multi-page document, shown in the page viewer (see pagesOf)
 //
 // A document only appears on the site once it has a `file` or a `verify` link,
 // so an entry that is still waiting for its file never creates a broken page.
@@ -41,6 +42,17 @@ export const categories = [
   { id: "recognition", label: "Appreciation and membership" },
   { id: "media", label: "News and photos" },
 ];
+
+// The pages of a multi-page document, made by the document tool with --pages from the published
+// PDF: pages/<slug>-p<n>.webp (1600 px wide) and pages/<slug>-p<n>-sm.webp (320 px wide, for the strip).
+// `sizes` lists the width and height of each large page image.
+const pagesOf = (slug, sizes) =>
+  sizes.map(([width, height], i) => ({
+    src: `/certificates/pages/${slug}-p${i + 1}.webp`,
+    thumb: `/certificates/pages/${slug}-p${i + 1}-sm.webp`,
+    width,
+    height,
+  }));
 
 // The three files of a document, all named after its slug.
 const f = (slug, ext = "pdf") => ({
@@ -171,6 +183,7 @@ const all = [
     issuer: "Department of Civil Engineering, Sri Sairam Engineering College, Chennai", date: "Dec 2025", sort: "2025-12",
     about: "A sieve analysis of a Porbandar coast sand sample, carried out in the Civil Engineering Laboratory of Sri Sairam Engineering College and signed and stamped by the head of the department. We used it to check Coast Scan's grain size results against the standard lab method.",
     ...f("coast-scan-lab-report-2025"),
+    pages: pagesOf("coast-scan-lab-report-2025", [[1600, 2458], [1600, 2302]]),
   },
 
   // Courses and training -------------------------------------------------------

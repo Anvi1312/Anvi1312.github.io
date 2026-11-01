@@ -7,11 +7,13 @@ import { imageSize } from "../data/imageSize.js";
 interface Props { doc: any; filterable?: boolean }
 const { doc: d, filterable = false } = Astro.props;
 const isPhoto = d.kind === "photo";
+const pageCount = d.pages ? d.pages.length : 1;
 ---
 <a class="doc-card" href={d.href} data-cat={filterable ? d.cat : undefined}>
   {d.thumb ? (
-    <span class={`doc-card__img${isPhoto ? " doc-card__img--photo" : ""}`}>
+    <span class={`doc-card__img${isPhoto ? " doc-card__img--photo" : ""}${pageCount > 1 ? " doc-card__img--pages" : ""}`}>
       <img src={d.thumb} alt={`${d.short}, ${isPhoto ? "photo" : "document"}`} loading="lazy" decoding="async" {...imageSize(d.thumb)} />
+      {pageCount > 1 && <span class="doc-card__pages">{pageCount} pages</span>}
     </span>
   ) : (
     <span class="doc-card__text">

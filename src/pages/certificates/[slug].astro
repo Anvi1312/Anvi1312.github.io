@@ -6,6 +6,7 @@ import Plus from "../../components/Plus.astro";
 import Btn from "../../components/Btn.astro";
 import Slider from "../../components/Slider.astro";
 import DocCard from "../../components/DocCard.astro";
+import DocViewer from "../../components/DocViewer.astro";
 import { documents, categoryLabel } from "../../data/documents.js";
 import { projects } from "../../data/site.js";
 import { imageSize } from "../../data/imageSize.js";
@@ -19,6 +20,10 @@ const project = d.project ? projects.find((p) => p.slug === d.project && p.secti
 const more = documents.filter((x) => x.cat === d.cat && x.slug !== d.slug);
 const image = d.preview || d.thumb;
 const isPhoto = d.kind === "photo";
+// Every page for the viewer. A single-page document or photo is one page.
+const viewerPages = d.pages
+  ? d.pages.map((p, i) => ({ ...p, alt: `${d.short}, page ${i + 1} of ${d.pages.length}` }))
+  : image ? [{ src: image, alt: `${d.title}, ${isPhoto ? "photo" : "page one of the document"}`, ...imageSize(image) }] : [];
 const fileLabel = isPhoto ? "Open the full photo" : d.kind === "article" ? "Open the article" : "Open the certificate";
 const title = `${d.short} | Anvi Panchal`;
 // The issuer as printed on the document. It differs from `issuer` only when the document has a typo.
@@ -34,9 +39,7 @@ const description = `${d.title}. ${issuedBy}${d.date ? `, ${d.date}` : ""}. ${d.
       <div class="doc-page__view plus-frame">
         <Plus />
         {image ? (
-          <a class="frame" href={d.file || d.verify} target={d.file ? undefined : "_blank"} rel={d.file ? undefined : "noopener"} style="display: block">
-            <img src={image} alt={`${d.title}, ${isPhoto ? "photo" : "page one of the document"}`} decoding="async" {...imageSize(image)} />
-          </a>
+          <DocViewer pages={viewerPages} title={d.short} frameClass="frame" />
         ) : (
           <div class="doc-card__text">
             <em>{categoryLabel(d.cat)}</em>
@@ -64,7 +67,7 @@ const description = `${d.title}. ${issuedBy}${d.date ? `, ${d.date}` : ""}. ${d.
   </section>
 
   {more.length > 0 && (
-    <section class="section section--pink lines" aria-label={`More ${categoryLabel(d.cat).toLowerCase()}`}>
+    <section class="section section--pink lines">
       <Slider label={`More ${categoryLabel(d.cat).toLowerCase()}`}>
         <h2 slot="head" class="h-section">More {categoryLabel(d.cat).toLowerCase()}</h2>
         {more.map((x) => <DocCard doc={x} />)}
