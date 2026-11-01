@@ -24,7 +24,7 @@ const isPhoto = d.kind === "photo";
 const viewerPages = d.pages
   ? d.pages.map((p, i) => ({ ...p, alt: `${d.short}, page ${i + 1} of ${d.pages.length}` }))
   : image ? [{ src: image, alt: `${d.title}, ${isPhoto ? "photo" : "page one of the document"}`, ...imageSize(image) }] : [];
-const fileLabel = isPhoto ? "Open the full photo" : d.kind === "article" ? "Open the article" : "Open the certificate";
+const fileLabel = isPhoto ? "Open the full photo" : d.kind === "article" ? "Open the article" : d.linkLabel ? `Open the ${d.linkLabel.toLowerCase()}` : "Open the certificate";
 const title = `${d.short} | Anvi Panchal`;
 // The issuer as printed on the document. It differs from `issuer` only when the document has a typo.
 const issuedBy = d.printedIssuer || d.issuer;

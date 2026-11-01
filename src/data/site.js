@@ -50,7 +50,7 @@ export const stats = [
   { value: "02", label: "Papers", text: "Accepted by Springer Nature journals, one as first author." },
   { value: "05", label: "Internships", text: "Including ISRO, plus remote roles with teams in the UK and Dubai." },
   { value: "68,766", label: "SIH 2025", text: "Teams in Smart India Hackathon 2025, where our team won." },
-  { value: "03", label: "Design patents", text: "Filed with the Indian Patent Office, all under examination." },
+  { value: "03", label: "Design patents", text: "Filed with the Indian Patent Office, one accepted for registration and two under examination." },
 ];
 
 export const research = {
@@ -90,6 +90,19 @@ export const research = {
   ],
   footnote: "ROC-AUC measures how well a model separates marsquakes from noise, where 100% is perfect.",
   third: "A third paper is in progress.",
+};
+
+// "Intellectual Property" on the home page, straight after Research. The same facts as Yash's site.
+// Say "design patent" only, never "application", and show no application numbers.
+// `accepted` gives the row the accent badge. `doc` adds the "View acceptance status" link.
+export const ip = {
+  title: "Intellectual Property",
+  intro: "Three design patents filed with the Indian Patent Office, one accepted for registration and two under examination.",
+  designs: [
+    { name: "Portable Soil Moisture Meter", status: "Accepted for registration", accepted: true, note: "Certificate in progress", doc: "soil-moisture-meter-design-2026", linkText: "View acceptance status" },
+    { name: "Compact Soil Moisture Monitoring Device", status: "Under examination" },
+    { name: "Portable Sediment Grain Size Analysis Device (Coast Scan)", status: "Under examination" },
+  ],
 };
 
 export const path = {
@@ -170,7 +183,8 @@ export const moreWork = [
   { page: "omni-terminal", img: "/images/projects/omni-terminal-desk.webp", alt: "The Omni-Terminal on a desk", tag: "Hardware" },
   {
     name: "Soil moisture monitor", tag: "Hardware",
-    text: "An ESP32 device that beeps and lights up when a plant needs water. Both of its enclosure designs are filed as design patents.",
+    text: "An ESP32 device that beeps and lights up when a plant needs water. Both of its enclosure designs are filed as design patents. The Portable Soil Moisture Meter design patent has been accepted for registration, with the certificate in progress, and the Compact Soil Moisture Monitoring Device design patent is under examination.",
+    doc: "soil-moisture-meter-design-2026",
   },
   {
     name: "Learning recommender", tag: "HackHound 3.0",
@@ -772,7 +786,7 @@ export const sih = {
 export const wins = [
   { result: "5th of 44", title: "TetraTHON 2026, Indo-French AI Innovation Sprint", line: "Aug 2026", doc: "tetrathon-2026-fifth-rank" },
   { result: "Presented", title: "ICISHCT 2026, paper presentation", line: "Oct 2026", doc: "icishct-2026-paper-presentation" },
-  { result: "03", title: "Design patents filed with the Indian Patent Office", line: "all under examination" },
+  { result: "03", title: "Design patents filed with the Indian Patent Office", line: "one accepted for registration and two under examination" },
   { result: "Top 50", title: "SSIP Vikas Saptah Hackathon 2025", line: "out of 4,000+ teams", doc: "vikas-saptah-hackathon-2025" },
   { result: "Selected", title: "Singapore India Hackathon 2026", line: "Event ongoing, with AICTE and the Ministry of Education" },
 ];

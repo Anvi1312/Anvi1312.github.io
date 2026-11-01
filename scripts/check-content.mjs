@@ -42,7 +42,9 @@ for (const file of pages) {
     if (/;/.test(line)) hit("semicolon");
     if (/\+91|\b\d{5}\s?\d{5}\b/.test(line)) hit("looks like a phone number");
     if (/lorem ipsum|placeholder|\bTODO\b|\bTBD\b|example\.com/i.test(line)) hit("placeholder text");
-    if (/\bpatents?\b/i.test(line) && !/design patents?|patent office/i.test(line)) hit('"patent" is only used as "design patent" or "Patent Office"');
+    // The issuing office's official name is the only other place "Patents" may appear.
+    const withoutOffice = line.replace(/Controller General of Patents, Designs and Trade Marks/g, "");
+    if (/\bpatents?\b/i.test(withoutOffice) && !/design patents?|patent office/i.test(withoutOffice)) hit('"patent" is only used as "design patent" or "Patent Office"');
     if (/design applications?/i.test(line)) hit('say "design patent", not "design application"');
     if (/waitlist/i.test(line)) hit("never mention a waitlist");
     if (/\b(enrol?ment|roll)\s*(no|number)\b/i.test(line)) hit("looks like an ID number label");

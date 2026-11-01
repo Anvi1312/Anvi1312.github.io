@@ -9,7 +9,7 @@ import Wave from "../components/Wave.astro";
 import GrainField from "../components/GrainField.astro";
 import Count from "../components/Count.astro";
 import {
-  site, nav, hero, story, stats, research, path, featured, moreWork, projects,
+  site, nav, hero, story, stats, research, ip, path, featured, moreWork, projects,
   experience, education, sih, wins, activities, press,
 } from "../data/site.js";
 import { categories, sortedDocuments, docBySlug, docLink } from "../data/documents.js";
@@ -152,6 +152,29 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
     </div>
   </section>
 
+  <!-- Intellectual Property: the three design patents, straight after Research -->
+  <section class="section section--white lines" id="intellectual-property" aria-labelledby="ip-title">
+    <h2 id="ip-title" class="tag-pill">{ip.title}</h2>
+    <p class="intro" style="margin-top: 0.75rem">{ip.intro}</p>
+    <ul class="ip-list">
+      {ip.designs.map((x) => {
+        const link = x.doc && docLink(x.doc);
+        return (
+          <li class={`ip-row${x.accepted ? " ip-row--accepted" : ""}`}>
+            <h3 class="ip-row__name">{x.name}</h3>
+            <p class="ip-row__status">
+              <span class={`ip-badge${x.accepted ? " ip-badge--accepted" : ""}`}>{x.status}</span>
+              {x.note && <span class="ip-row__note">{x.note}</span>}
+            </p>
+            {link ? (
+              <a class="arrow-link ip-row__link" href={link}>{x.linkText}<span class="sr-only">: {x.name}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
+            ) : <span class="ip-row__link" aria-hidden="true"></span>}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
   <!-- How I work -->
   <section class="section section--fade lines" id="path" aria-labelledby="path-title">
     <div class="split">
@@ -232,7 +255,7 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
           const links = [
             p && { href: `/projects/${p.slug}`, label: "View details" },
             !p && m.href && { href: m.href, label: m.hrefLabel, external: true },
-            m.doc && docLink(m.doc) && { href: docLink(m.doc), label: "Certificate" },
+            m.doc && docLink(m.doc) && { href: docLink(m.doc), label: docBySlug(m.doc).linkLabel || "Certificate" },
           ].filter(Boolean);
           return (
             <article class="work-card">

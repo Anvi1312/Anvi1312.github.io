@@ -25,11 +25,14 @@
 //   kind      "photo" for event photos, "article" for news, otherwise left out
 //   redacted  true when personal details are covered on the published copy
 //   pages     every page of a multi-page document, shown in the page viewer (see pagesOf)
+//   linkLabel the words for links to this document, when "Certificate" would be wrong, for
+//             example "Acceptance status". Its page button then says "Open the acceptance status"
 //
 // A document only appears on the site once it has a `file` or a `verify` link,
 // so an entry that is still waiting for its file never creates a broken page.
 // Recommendation letters, design patent filing papers and anything with an
-// application number are never published.
+// application number are never published, except the status of a design patent
+// that has been accepted for registration.
 //
 // The files are made by "Anvi Website/tools/prepare-documents.py" from the originals in DOC.
 // ---------------------------------------------------------------------------
@@ -184,6 +187,16 @@ const all = [
     about: "A sieve analysis of a Porbandar coast sand sample, carried out in the Civil Engineering Laboratory of Sri Sairam Engineering College and signed and stamped by the head of the department. We used it to check Coast Scan's grain size results against the standard lab method.",
     ...f("coast-scan-lab-report-2025"),
     pages: pagesOf("coast-scan-lab-report-2025", [[1600, 2458], [1600, 2302]]),
+  },
+  {
+    slug: "soil-moisture-meter-design-2026", cat: "research",
+    title: "Design patent accepted for registration, Portable Soil Moisture Meter",
+    short: "Design patent accepted, soil moisture meter",
+    issuer: "Office of the Controller General of Patents, Designs and Trade Marks, India", date: "Oct 2026", sort: "2026-10",
+    about: "The design patent for the Portable Soil Moisture Meter, filed with the Indian Patent Office on 12 October 2026, has been accepted for registration. The certificate of registration is in progress.",
+    redacted: true,
+    linkLabel: "Acceptance status", // the certificate of registration is not issued yet
+    ...f("soil-moisture-meter-design-2026"),
   },
 
   // Courses and training -------------------------------------------------------
