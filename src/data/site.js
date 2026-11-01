@@ -14,7 +14,7 @@ export const site = {
   resume: "/resume/anvi-panchal-resume.pdf",
   title: "Anvi Panchal | AI/ML and Full Stack Engineer",
   description:
-    "Anvi Panchal is an AI/ML and full stack engineer from Ahmedabad. AI/ML Research Intern at ISRO, Smart India Hackathon 2025 national winner, and first author of a paper accepted by a Springer Nature journal.",
+    "Anvi Panchal is an AI/ML and full stack engineer from Ahmedabad. AI/ML Research Intern at ISRO, National Winner at Smart India Hackathon 2025, Hardware Edition, and first author of a paper accepted by a Springer Nature journal.",
   availability: "Internships, January to July 2027",
 };
 
@@ -89,7 +89,7 @@ export const research = {
     },
   ],
   footnote: "ROC-AUC measures how well a model separates marsquakes from noise, where 100% is perfect.",
-  third: "A third paper, on conflict-aware multimodal sentiment analysis, is in progress.",
+  third: "A third paper is in progress.",
 };
 
 export const path = {
@@ -110,7 +110,7 @@ export const featured = [
   {
     slug: "coast-scan",
     title: "Coast Scan",
-    badge: "Smart India Hackathon 2025, National Winner",
+    badge: "Smart India Hackathon 2025, Hardware Edition, National Winner",
     lead: "A handheld device that measures beach sand grain size in seconds, instead of days in a lab.",
     points: [
       "A Raspberry Pi camera and sensors inside a closed black chamber, so every photo is taken in the same light.",
@@ -123,7 +123,7 @@ export const featured = [
   {
     slug: "edubridge-ai",
     title: "EduBridge AI",
-    badge: "TetraTHON 2026, 5th of 44 finalist teams",
+    badge: "TetraTHON 2026, Indo-French AI Innovation Sprint, 5th Place, 5th of 44 finalist teams",
     lead: "Live English lectures explained in the student's own language, at their level, while the lecture is still going on.",
     points: [
       "Streams lecture audio over WebSockets, transcribes it and detects technical terms on the server.",
@@ -136,7 +136,7 @@ export const featured = [
   {
     slug: "urja-setu",
     title: "Urja Setu",
-    badge: "SSIP Vikas Saptah Hackathon 2025, Top 50",
+    badge: "SSIP Vikas Saptah Hackathon 2025, Top 50, out of 4,000+ teams",
     lead: "Citizens report an electrical hazard with one photo, and the right technician gets a prioritised ticket.",
     points: [
       "A fine-tuned YOLOv8s model detects seven classes, from poles and transformers to vegetation overgrowth.",
@@ -173,19 +173,14 @@ export const moreWork = [
   },
   {
     name: "Learning recommender", tag: "HackHound 3.0",
-    text: "An AI learning recommender with a personalised dashboard, course and project suggestions and a progress roadmap.",
+    text: "An AI learning recommender with a personalised dashboard, course and project suggestions and a progress roadmap, built at HackHound 3.0, where we were national finalists.",
     doc: "hackhound-3-2025",
   },
   {
     name: "Synapse", tag: "Indus Hackathon 2025",
-    text: "A hospital outpatient (OPD) management system that covers the patient journey end to end.",
+    text: "A hospital outpatient (OPD) management system that covers the patient journey end to end, built at Indus Hackathon 2025, where we were offline finalists.",
     href: "https://github.com/Yash-158/Synapse", hrefLabel: "Code on GitHub",
     doc: "indus-hackathon-2025",
-  },
-  {
-    name: "Conflict-aware sentiment analysis", tag: "Research in progress",
-    text: "Research on whether multimodal sentiment models blame the right input, text, voice or face, when the three disagree.",
-    href: "https://github.com/Yash-158/faithful-msa", hrefLabel: "Code on GitHub",
   },
 ];
 
@@ -200,18 +195,18 @@ export const projects = [
     summary:
       "A handheld device that photographs beach sand and reports grain size and sediment type in seconds, instead of days in a lab. It is incubated at GLS LEAF.",
     lead: "A handheld device that analyses beach sand in seconds, instead of days in a lab.",
-    badge: "National Winner, Smart India Hackathon 2025",
+    badge: "National Winner, Smart India Hackathon 2025, Hardware Edition",
     stackShort: "Python, OpenCV, CNNs, Raspberry Pi, Django, AWS",
     stack: ["Python", "OpenCV", "NumPy", "CNNs", "Raspberry Pi", "IoT sensors", "Django", "AWS"],
     metric: { tone: "blue", tilt: -7, eyebrow: "Validated in a civil engineering lab", value: "98%", caption: "agreement with sieve analysis on D50 grain size" },
     homeLinks: [{ label: "Lab report", href: LAB_REPORT }],
     links: [{ label: "Read the lab report", href: LAB_REPORT, primary: true }],
     hero: { kind: "grains", caption: "How the device sees sand. Each grain is outlined and measured.", note: "Illustration" },
-    heroStickers: { award: ["National Winner", "Smart India Hackathon 2025"], stat: ["98%", "match with lab sieve analysis"] },
+    heroStickers: { award: ["National Winner", "Smart India Hackathon 2025, Hardware Edition"], stat: ["98%", "match with lab sieve analysis"] },
     facts: [
       ["Timeline", "Sep to Dec 2025"],
       ["Team", "6 people"],
-      ["Result", "National Winner, SIH 2025"],
+      ["Result", "National Winner, Smart India Hackathon 2025, Hardware Edition"],
       ["Now", "Incubated at GLS LEAF"],
     ],
     sections: [
@@ -268,10 +263,10 @@ export const projects = [
         eyebrow: "Where it went",
         title: "From a hackathon idea to an incubated product.",
         items: [
-          ["National Winner, Smart India Hackathon 2025.", "Selected from 68,766 teams, and the only team from Gujarat among the winners."],
+          ["National Winner, Smart India Hackathon 2025, Hardware Edition.", "Selected from 68,766 teams, and the only team from Gujarat among the winners."],
           ["Design patent filed.", "\"Portable Sediment Grain Size Analysis Device\", filed with the Indian Patent Office and under examination."],
           ["Incubated at GLS LEAF.", "The incubation centre at GLS University."],
-          ["Pitched at the IDE Bootcamp.", "Edition 3, run by the Ministry of Education's Innovation Cell and AICTE at GITAM Bengaluru."],
+          ["Pitched at the IDE Bootcamp, Edition 3, Phase 1.", "Run by the Ministry of Education's Innovation Cell and AICTE at GITAM Bengaluru."],
           ["Featured in Ahmedabad Mirror.", "A story on our national win."],
         ],
       },
@@ -286,17 +281,17 @@ export const projects = [
     summary:
       "It listens to a live English lecture and explains it in the student's own language, at their level, while the lecture is still going on.",
     lead: "Live English lectures, explained in the student's own language while the lecture is still going on.",
-    badge: "5th Place, Indo-French AI Hackathon 2026",
+    badge: "5th Place, TetraTHON 2026, Indo-French AI Innovation Sprint",
     stackShort: "React 19, TypeScript, Node.js, Fastify, WebSockets, LLMs, AWS Lightsail",
     stack: ["React 19", "TypeScript", "Node.js", "Fastify", "WebSockets", "Speech recognition", "LLMs", "AWS Lightsail"],
     metric: { tone: "navy", tilt: 6, eyebrow: "Built to stay up during a lecture", value: "175", caption: "automated tests, with automatic failover between AI providers" },
-    homeNote: "Final-round project among 44 finalist teams at TetraTHON 2026.",
+    homeNote: "5th Place, 5th of 44 finalist teams, at TetraTHON 2026, Indo-French AI Innovation Sprint.",
     hero: { kind: "metric" },
-    heroStickers: { award: ["5th Place", "TetraTHON 2026"], stat: ["44", "finalist teams in the final round"] },
+    heroStickers: { award: ["5th Place", "TetraTHON 2026, Indo-French AI Innovation Sprint"], stat: ["44", "finalist teams in the final round"] },
     facts: [
       ["Timeline", "Jul to Aug 2026"],
-      ["Event", "TetraTHON 2026, 36 hours"],
-      ["Result", "5th of 44 finalist teams"],
+      ["Event", "TetraTHON 2026, Indo-French AI Innovation Sprint"],
+      ["Result", "5th Place, 5th of 44 finalist teams"],
       ["Tests", "155 unit and 20 end-to-end"],
     ],
     sections: [
@@ -341,7 +336,7 @@ export const projects = [
         items: [
           { style: "solid", value: "175", text: "automated tests, 155 unit tests and 20 end-to-end browser tests" },
           { style: "glass", value: "3 providers", text: "Speech and language models are routed across Sarvam, Groq and Cerebras, with automatic failover if one goes down." },
-          { style: "glass", value: "5th of 44", text: "Placed 5th among the finalist teams at the Indo-French AI Hackathon, TetraTHON 2026." },
+          { style: "glass", value: "5th of 44", text: "5th Place, 5th of 44 finalist teams, at TetraTHON 2026, Indo-French AI Innovation Sprint." },
         ],
       },
       {
@@ -349,7 +344,7 @@ export const projects = [
         eyebrow: "Recognition",
         title: "Built during a 36-hour sprint.",
         items: [
-          ["5th Place, TetraTHON 2026.", "The Indo-French AI Innovation Sprint at Navrachana University, with ISEN Mediterranee in France, under the IndiaAI Mission."],
+          ["5th Place, 5th of 44 finalist teams.", "TetraTHON 2026, Indo-French AI Innovation Sprint, a 36-hour sprint at Navrachana University with ISEN Mediterranee in France, under the IndiaAI Mission."],
           ["Selected from the earlier round.", "Our selection-round project was StudySetu, an adaptive revision platform."],
         ],
       },
@@ -364,18 +359,18 @@ export const projects = [
     summary:
       "Citizens report an electrical hazard with one photo. The model works out what is in it and sends a prioritised ticket to the right technician, for a problem statement from GUVNL, Gujarat's power utility.",
     lead: "Report an electrical hazard with one photo, and the right technician gets a prioritised ticket.",
-    badge: "Top 50, SSIP Vikas Saptah Hackathon 2025",
+    badge: "Top 50, out of 4,000+ teams, SSIP Vikas Saptah Hackathon 2025",
     stackShort: "Python, YOLOv8, PyTorch, Django REST Framework, Flutter, React",
     stack: ["Python", "YOLOv8", "PyTorch", "Django REST Framework", "Flutter", "React", "OpenStreetMap"],
     metric: { tone: "white", tilt: -5, eyebrow: "Fine-tuned YOLOv8s model", value: "7", caption: "classes detected, from poles and transformers to vegetation overgrowth" },
     homeLinks: [{ label: "Backend code on GitHub", href: "https://github.com/Anvi1312/Urja-Setu", circle: true }],
     links: [{ label: "Backend code on GitHub", href: "https://github.com/Anvi1312/Urja-Setu", primary: true }],
     hero: { kind: "image", src: "/images/projects/urja-setu-dashboard.webp", alt: "Urja Setu admin dashboard with a map of unresolved hazard reports across Ahmedabad", caption: "The admin dashboard, with a map of unresolved reports." },
-    heroStickers: { award: ["Top 50", "SSIP Vikas Saptah 2025"], stat: ["4,000+", "teams in the hackathon"] },
+    heroStickers: { award: ["Top 50", "SSIP Vikas Saptah Hackathon 2025"], stat: ["4,000+", "teams in the hackathon"] },
     facts: [
       ["Timeline", "Sep to Oct 2025"],
       ["Team", "6 people"],
-      ["Result", "Top 50 of 4,000+ teams"],
+      ["Result", "Top 50, out of 4,000+ teams"],
       ["For", "GUVNL, Gujarat"],
     ],
     sections: [
@@ -424,9 +419,9 @@ export const projects = [
       {
         kind: "list",
         eyebrow: "Recognition",
-        title: "One of the top 50 out of 4,000+ teams.",
+        title: "Top 50, out of 4,000+ teams.",
         items: [
-          ["Top 50, SSIP Vikas Saptah Hackathon 2025.", "The 6th edition, run by the Gujarat Knowledge Society under SSIP Gujarat at PDEU, Gandhinagar."],
+          ["SSIP Vikas Saptah Hackathon 2025.", "The 6th edition, run by the Gujarat Knowledge Society under SSIP Gujarat at PDEU, Gandhinagar."],
           ["A real problem statement.", "Set by GUVNL, Gujarat's power utility."],
         ],
       },
@@ -500,7 +495,7 @@ export const projects = [
     slug: "studysetu",
     name: "StudySetu",
     category: "AI and education",
-    period: "TetraTHON 2026 selection round",
+    period: "TetraTHON 2026, Indo-French AI Innovation Sprint, selection round",
     summary:
       "A prototype that finds the concepts a student missed after a lecture and builds a short revision session, with a teacher approving every AI-generated item.",
     lead: "A prototype that finds what each student missed after a lecture, and builds a short revision session around it.",
@@ -509,7 +504,7 @@ export const projects = [
     links: [{ label: "Code on GitHub", href: "https://github.com/Yash-158/studysetu", primary: true }],
     hero: { kind: "image", src: "/images/projects/studysetu-diagnostic.webp", alt: "StudySetu review screen after a diagnostic quiz, showing chosen and correct answers with reasoning", caption: "The review screen after a five-question diagnostic." },
     facts: [
-      ["Event", "TetraTHON 2026"],
+      ["Event", "TetraTHON 2026, Indo-French AI Innovation Sprint"],
       ["Stage", "Selection-round project"],
       ["Status", "Working prototype"],
       ["Users", "Students, teachers, admins"],
@@ -703,7 +698,7 @@ export const experience = [
   {
     dates: "Jun 2025 to Jul 2025",
     role: "AI & Backend Engineering Intern",
-    org: "The Line Tech Solution Limited, United Kingdom",
+    org: "The Line Tech Solutions Ltd, United Kingdom",
     place: "Remote",
     points: [
       "Delivered Django APIs and AI agents that automate order handling in an order management system.",
@@ -759,7 +754,7 @@ export const education = {
 
 export const sih = {
   pill: "December 2025, Chennai",
-  title: "National Winner, Smart India Hackathon 2025",
+  title: "National Winner, Smart India Hackathon 2025, Hardware Edition",
   text: "Our team built Coast Scan for a problem statement from the Ministry of Earth Sciences and the National Centre for Coastal Research, and won at the Hardware Edition Grand Finale. The win was featured in Ahmedabad Mirror.",
   stats: [
     ["68,766", "teams across India"],
@@ -775,17 +770,17 @@ export const sih = {
 // A result that is a plain number, such as "03", counts up when it scrolls into view.
 export const wins = [
   { result: "5th of 44", title: "TetraTHON 2026, Indo-French AI Innovation Sprint", line: "Aug 2026", doc: "tetrathon-2026-fifth-rank" },
-  { result: "Presented", title: "ICISHCT 2026, research paper presentation", line: "Oct 2026", doc: "icishct-2026-paper-presentation" },
+  { result: "Presented", title: "ICISHCT 2026, paper presentation", line: "Oct 2026", doc: "icishct-2026-paper-presentation" },
   { result: "03", title: "Design patents filed with the Indian Patent Office", line: "all under examination" },
   { result: "Top 50", title: "SSIP Vikas Saptah Hackathon 2025", line: "out of 4,000+ teams", doc: "vikas-saptah-hackathon-2025" },
-  { result: "Selected", title: "Singapore India Hackathon 2026 (ongoing)", line: "AICTE and the Ministry of Education" },
+  { result: "Selected", title: "Singapore India Hackathon 2026", line: "Event ongoing, with AICTE and the Ministry of Education" },
 ];
 
 export const activities = [
   { title: "Co-founder, Ink and Imagination", text: "The literary club at GLS University." },
   { title: "Organiser, ECHO", text: "The department's first literary event, run end to end for 300+ students.", doc: "echo-2025-appreciation" },
   { title: "Coordinator, CyberShadez", text: "A national-level technical event of the B.Tech CSE department.", doc: "cybershadez-2026-appreciation" },
-  { title: "Mentor", text: "Formed our SIH 2025 team across batches for the first time, and mentored junior students through the internal selection." },
+  { title: "Mentor", text: "Formed our SIH 2025 team across batches for the first time, and mentored junior teams through the Smart India Hackathon 2026 internal round at GLS University." },
   { title: "IEEE Student Member", text: "Member of IEEE, the professional body for computing engineers.", doc: "ieee-membership-2026" },
 ];
 

@@ -21,7 +21,9 @@ const image = d.preview || d.thumb;
 const isPhoto = d.kind === "photo";
 const fileLabel = isPhoto ? "Open the full photo" : d.kind === "article" ? "Open the article" : "Open the certificate";
 const title = `${d.short} | Anvi Panchal`;
-const description = `${d.title}. ${d.issuer}${d.date ? `, ${d.date}` : ""}. ${d.about}`;
+// The issuer as printed on the document. It differs from `issuer` only when the document has a typo.
+const issuedBy = d.printedIssuer || d.issuer;
+const description = `${d.title}. ${issuedBy}${d.date ? `, ${d.date}` : ""}. ${d.about}`;
 ---
 <Base title={title} description={description} image={d.preview || "/og-image.jpg"}>
   <Topbar slot="header" current="Certificates" />
@@ -48,7 +50,7 @@ const description = `${d.title}. ${d.issuer}${d.date ? `, ${d.date}` : ""}. ${d.
         <h1 id="doc-title">{d.title}</h1>
         <p class="doc-page__about">{d.about}</p>
         <dl>
-          <div><dt>Issued by</dt><dd>{d.issuer}</dd></div>
+          <div><dt>Issued by</dt><dd>{issuedBy}</dd></div>
           {d.date && <div><dt>Date</dt><dd>{d.date}</dd></div>}
           {project && <div><dt>Project</dt><dd><a href={`/projects/${project.slug}`}>{project.name}</a></dd></div>}
         </dl>

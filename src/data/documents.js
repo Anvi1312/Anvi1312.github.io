@@ -10,6 +10,8 @@
 //   title     full name of the certificate, written as a short sentence
 //   short     shorter label for cards (optional, falls back to title)
 //   issuer    who issued it
+//   printedIssuer  the issuer exactly as printed, shown only on the certificate's own page
+//             when it differs from the correct name (for example a typo on the document)
 //   date      month and year as shown on the document, for example "Dec 2025"
 //   sort      the same date as YYYY-MM, used for ordering ("" if unknown)
 //   about     one or two plain sentences on what it was for. Every title, issuer, date
@@ -61,7 +63,8 @@ const all = [
     slug: "line-tech-internship-2025", cat: "internship",
     title: "Internship Completion Certificate, The Line Tech",
     short: "The Line Tech, internship",
-    issuer: "The Line Tech Solution Limited, United Kingdom", date: "Jul 2025", sort: "2025-07",
+    issuer: "The Line Tech Solutions Ltd, United Kingdom", date: "Jul 2025", sort: "2025-07",
+    printedIssuer: "The Line Tech Solution Limited, United Kingdom",
     about: "An internship from 1 June to 1 July 2025, where I worked on the Nishan product order management system. I used AI tools and agents to design order workflows, pulled data from Tally Prime Gold through APIs into dashboards, and built screens and backend workflows in Bubble.",
     redacted: true,
     ...f("line-tech-internship-2025"),
@@ -87,59 +90,59 @@ const all = [
   // Hackathons and awards ----------------------------------------------------
   {
     slug: "sih-2025-winner", cat: "hackathon", featured: true, project: "coast-scan",
-    title: "Winner, Smart India Hackathon 2025, Hardware Edition",
-    short: "Smart India Hackathon 2025, Winner",
+    title: "National Winner, Smart India Hackathon 2025, Hardware Edition",
+    short: "Smart India Hackathon 2025, National Winner",
     issuer: "Ministry of Education, AICTE and MoE's Innovation Cell", date: "Dec 2025", sort: "2025-12",
-    about: "Our team won Smart India Hackathon 2025 at the Hardware Edition Grand Finale, held from 8 to 12 December 2025 with Sri Sairam Engineering College, Chennai as the nodal centre.",
+    about: "Our team was a National Winner at Smart India Hackathon 2025, Hardware Edition. The Grand Finale was held from 8 to 12 December 2025, with Sri Sairam Engineering College, Chennai as the nodal centre.",
     ...f("sih-2025-winner"),
   },
   {
     slug: "tetrathon-2026-fifth-rank", cat: "hackathon", featured: true, project: "edubridge-ai",
-    title: "Fifth Rank, TetraTHON 2026",
-    short: "TetraTHON 2026, fifth rank",
+    title: "5th Place, TetraTHON 2026, Indo-French AI Innovation Sprint (Certificate of Achievement)",
+    short: "TetraTHON 2026, 5th Place",
     issuer: "Navrachana University, Vadodara, with ISEN Méditerranée, France", date: "Aug 2026", sort: "2026-08",
-    about: "Our team, The Caffeine Clause, claimed fifth rank at TetraTHON 2026, a 36-hour Indo-French AI innovation sprint held from 31 July to 2 August 2026.",
+    about: "Our team, The Caffeine Clause, won 5th Place, 5th of 44 finalist teams, at TetraTHON 2026, Indo-French AI Innovation Sprint. The 36-hour sprint was held from 31 July to 2 August 2026.",
     ...f("tetrathon-2026-fifth-rank"),
   },
   {
     slug: "vikas-saptah-hackathon-2025", cat: "hackathon", project: "urja-setu",
-    title: "Certificate of Participation, Vikas Saptah Hackathon 2025",
-    short: "Vikas Saptah Hackathon 2025",
+    title: "Top 50, SSIP Vikas Saptah Hackathon 2025 (Certificate of Participation)",
+    short: "SSIP Vikas Saptah Hackathon 2025, Top 50",
     issuer: "SSIP 2.0, Education Department, Government of Gujarat", date: "Oct 2025", sort: "2025-10",
-    about: "I took part as a hackathon team member in the Vikas Saptah Hackathon 2025, held on 14 October 2025 at Pandit Deendayal Energy University, Gandhinagar.",
+    about: "Our team was in the Top 50, out of 4,000+ teams, at the SSIP Vikas Saptah Hackathon 2025, held on 14 October 2025 at Pandit Deendayal Energy University, Gandhinagar.",
     ...f("vikas-saptah-hackathon-2025"),
   },
   {
     slug: "hackhound-3-2025", cat: "hackathon",
-    title: "Certificate of Achievement, HackHound 3.0",
-    short: "HackHound 3.0",
+    title: "National Finalist, HackHound 3.0 (Certificate of Achievement)",
+    short: "HackHound 3.0, National Finalist",
     issuer: "HackHound Club, SRM Institute of Science and Technology, Delhi NCR Campus", date: "Feb 2025", sort: "2025-02",
-    about: "I took part in HackHound 3.0, held on 27 and 28 February 2025 by the HackHound Club of the Department of CSE AIML.",
+    about: "Our team was a national finalist at HackHound 3.0, a 24-hour national-level hackathon at SRM Institute of Science and Technology, Delhi NCR, on 27 and 28 February 2025. We built an AI learning recommender with a personalised dashboard and a progress roadmap.",
     verify: "https://certificate.givemycertificate.com/c/a3a8d146-385b-45a5-8fd6-05fea634061a",
     ...f("hackhound-3-2025"),
   },
   {
     slug: "indus-hackathon-2025", cat: "hackathon",
-    title: "Certificate of Participation, Indus Hackathon 2025",
-    short: "Indus Hackathon 2025",
+    title: "Offline Finalist, Indus Hackathon 2025 (Certificate of Participation)",
+    short: "Indus Hackathon 2025, Offline Finalist",
     issuer: "Indus University, Ahmedabad", date: "Jan 2025", sort: "2025-01",
-    about: "I took part in Indus Hackathon 2025, organised by the Department of Computer Science and Engineering, IITE, Indus University, on 31 January 2025.",
+    about: "Our team was an offline finalist at Indus Hackathon 2025 at Indus University, Ahmedabad, on 31 January 2025, where we built Synapse, a hospital outpatient management system.",
     ...f("indus-hackathon-2025"),
   },
   {
     slug: "sih-2024-internal-first-place", cat: "hackathon",
-    title: "1st Place, GLS University Internal Hackathon 2024",
-    short: "Internal Hackathon 2024, 1st place",
+    title: "1st Place, SIH 2024 internal round (Certificate of Achievement)",
+    short: "SIH 2024 internal round, 1st Place",
     issuer: "GLS University, Faculty of Engineering and Technology", date: "Sep 2024", sort: "2024-09",
-    about: "I secured 1st place in the Internal Hackathon held by the Faculty of Engineering and Technology on 13 September 2024.",
+    about: "Our team placed 1st in the GLS University internal round of Smart India Hackathon 2024, held by the Faculty of Engineering and Technology on 13 September 2024.",
     ...f("sih-2024-internal-first-place"),
   },
   {
     slug: "youth-festival-2026-first-position", cat: "hackathon",
-    title: "First Position, 404: Treasure Not Found, GLS Youth Festival 2026",
-    short: "404: Treasure Not Found, first position",
+    title: "1st in Treasure Hunt (404: Treasure Not Found), Techno Games Championship, GLS Youth Festival 2026",
+    short: "Treasure Hunt, 1st place",
     issuer: "GLS University", date: "2026", sort: "2026-03",
-    about: "I secured first position in 404: Treasure Not Found at the GLS Youth Festival 2026, for the Faculty of Engineering and Technology.",
+    about: "I placed 1st in Treasure Hunt (404: Treasure Not Found) at the Techno Games Championship, GLS Youth Festival 2026, for the Faculty of Engineering and Technology.",
     ...f("youth-festival-2026-first-position"),
   },
   {
@@ -155,7 +158,7 @@ const all = [
   // Research -----------------------------------------------------------------
   {
     slug: "icishct-2026-paper-presentation", cat: "research", featured: true,
-    title: "Certificate of Paper Presentation, ICISHCT 2026",
+    title: "Paper presentation, ICISHCT 2026 (Certificate of Paper Presentation)",
     short: "ICISHCT 2026, paper presentation",
     issuer: "Institute of Advanced Research, Gandhinagar", date: "Oct 2026", sort: "2026-10",
     about: "I presented our paper \"Marsquake Detection from Raw InSight Waveforms with a Hybrid Convolutional and Fourier Neural Operator\" at ICISHCT 2026, the International Conference on Intelligent, Secured and Human-Centered Technologies, on 29 and 30 October 2026.",
@@ -224,10 +227,10 @@ const all = [
   },
   {
     slug: "ide-bootcamp-2026", cat: "course", project: "coast-scan",
-    title: "Innovation, Design and Entrepreneurship (IDE) Bootcamp, Edition 3, Phase I",
-    short: "IDE Bootcamp 2026",
+    title: "IDE Bootcamp, Edition 3, Phase 1 (Certificate of Participation)",
+    short: "IDE Bootcamp, Edition 3, Phase 1",
     issuer: "AICTE, Ministry of Education, at GITAM University, Bengaluru", date: "Apr 2026", sort: "2026-04",
-    about: "I took part in the IDE Bootcamp from 6 to 10 April 2026 at GITAM (Deemed to be) University, Bengaluru Campus, organised by AICTE.",
+    about: "I took part in the IDE Bootcamp, Edition 3, Phase 1, an Innovation, Design and Entrepreneurship bootcamp, from 6 to 10 April 2026 at GITAM (Deemed to be) University, Bengaluru Campus, organised by AICTE.",
     ...f("ide-bootcamp-2026"),
   },
   {
@@ -334,7 +337,7 @@ const all = [
   },
   {
     slug: "sih-2025-grand-finale-photo", cat: "media", kind: "photo", project: "coast-scan",
-    title: "Smart India Hackathon 2025 Grand Finale",
+    title: "Smart India Hackathon 2025, Hardware Edition, Grand Finale",
     short: "SIH 2025 Grand Finale, photo",
     issuer: "Sri Sairam Engineering College, Chennai", date: "Dec 2025", sort: "2025-12",
     about: "Our team at the Hardware Edition Grand Finale, with the winner's cheque and trophies.",
@@ -343,17 +346,17 @@ const all = [
   {
     slug: "vikas-saptah-2025-team-photo", cat: "media", kind: "photo", project: "urja-setu",
     title: "SSIP Vikas Saptah Hackathon 2025",
-    short: "Vikas Saptah 2025, team photo",
+    short: "SSIP Vikas Saptah Hackathon 2025, team photo",
     issuer: "PDEU, Gandhinagar", date: "Oct 2025", sort: "2025-10",
     about: "Our team with our participation certificates at the SSIP Vikas Saptah Hackathon 2025.",
     ...f("vikas-saptah-2025-team-photo", "jpg"),
   },
   {
     slug: "youth-festival-2026-trophies-photo", cat: "media", kind: "photo",
-    title: "Narrative Youth Festival 2026 trophies",
-    short: "Youth Festival 2026 trophies, photo",
+    title: "Techno Games Championship trophies, GLS Youth Festival 2026",
+    short: "Techno Games Championship trophies, photo",
     issuer: "GLS University", date: "2026", sort: "2026-03",
-    about: "Me with the trophies from the GLS University Narrative Youth Festival 2026, including the Overall Championship in Techno Games and first position in 404: Treasure Not Found.",
+    about: "Me with the trophies from the Techno Games Championship, GLS Youth Festival 2026, including the overall championship trophy and the trophy for 1st in Treasure Hunt (404: Treasure Not Found).",
     ...f("youth-festival-2026-trophies-photo", "jpg"),
   },
 ];

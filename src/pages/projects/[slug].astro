@@ -44,7 +44,7 @@ const eyebrow = (text) => `${String(++n).padStart(2, "0")}, ${text}`;
         {hasSteps && <Btn href="#how" variant={firstLink ? "glass" : "white"} icon="right">How it works</Btn>}
       </div>
     </div>
-    <div class="p-hero__art plus-frame">
+    <div class={`p-hero__art plus-frame${hero.kind === "grains" ? " plus-frame--blue" : ""}`}>
       <Plus />
       {hero.kind === "metric" ? (
         <div class="metric-card"><small>{p.metric.eyebrow}</small><strong>{p.metric.value}</strong><span>{p.metric.caption}</span></div>

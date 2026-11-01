@@ -39,11 +39,11 @@
   --headline-2: #b4436c;
   --rose-deep: #9e3a60;     /* the Smart India Hackathon card */
 
-  /* The Coast Scan grain illustration */
-  --grain-bg: #2b1a22;
-  --grain: #f4c6d4;
-  --grain-dot: #d9718f;
-  --grain-text: #ecd3dc;
+  /* The Coast Scan grain illustration. It is blue, part of the 20% blue in the blend. */
+  --grain-bg: #1f2b5c;      /* deep blue panel */
+  --grain: #c9d7ff;         /* grain fill */
+  --grain-dot: #5b7be0;     /* centre dots, the same as --blue */
+  --grain-text: #dce6ff;    /* caption, the same as --blue-mist */
 
   /* Colour channels, for see-through colours written as rgb(var(--x-rgb) / alpha) */
   --white-rgb: 255 255 255;
@@ -53,6 +53,19 @@
   --muted-rgb: 107 89 97;
 
   --pink-gradient: linear-gradient(180deg, var(--pink-1) 0%, var(--pink-2) 35%, var(--pink-3) 70%, var(--pink-4) 100%);
+
+  /* The soft blue second colour, about 20% of the page. Pink stays the main colour.
+     Blue is used only in the hero and Research gradients, the skill, project, experience and
+     stack chips, the dashed dividers and dots, and the "AI research into" story pill. */
+  --blue-ink: #4a67c9;      /* blue text and icons on white */
+  --blue: #5b7be0;
+  --blue-soft: #a9bdf5;
+  --blue-tint: #eaf0ff;     /* chip background */
+  --blue-line: #b9c8f2;     /* dashed dividers and dots */
+  --lilac: #f1d3e8;         /* where the hero turns from pink to blue */
+  --blue-mist: #dce6ff;     /* the light blue at the bottom of the hero and Research */
+  --hero-gradient: linear-gradient(180deg, var(--pink-1) 0%, var(--pink-2) 35%, var(--lilac) 70%, var(--blue-mist) 100%);
+  --research-gradient: linear-gradient(180deg, var(--pink-2) 0%, var(--blue-mist) 100%);
   --pink-grid: rgb(var(--accent-rgb) / 0.1);
   --glass-bg: rgb(var(--white-rgb) / 0.45);
   --glass-btn: rgb(var(--white-rgb) / 0.55);
@@ -129,6 +142,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .section--white { background: var(--white); }
 .section--dark { background: var(--dark); color: var(--white); }
 .section--pink { color: var(--plum); background: var(--pink-gradient); }
+#research { background: var(--research-gradient); }
 .section--fade { background: linear-gradient(180deg, var(--card) 0%, var(--card) 58%, var(--blush) 82%, var(--rose) 100%); }
 .lines::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -205,7 +219,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 /* Hero ------------------------------------------------------------------- */
 .hero {
   position: relative; overflow: hidden; border-radius: var(--radius); color: var(--plum);
-  background: var(--pink-gradient);
+  background: var(--hero-gradient);
 }
 .hero::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -303,7 +317,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .split__body { flex: 1 1 32.5rem; min-width: 0; }
 .split--rule { padding-bottom: 1.75rem; border-bottom: 1px solid rgb(var(--white-rgb) / 0.12); margin-bottom: 1.75rem; }
 .lede {
-  text-indent: clamp(0px, 8vw, 6.875rem); font-family: var(--head);
+  font-family: var(--head);
   font-size: clamp(1.1875rem, 1.9vw, 1.5rem); line-height: 1.55; color: var(--ink-2);
 }
 .lede .muted { color: var(--muted-2); }
@@ -331,9 +345,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
   font-family: var(--head); font-weight: 500; font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
 }
 .flow__pill--accent { background: linear-gradient(180deg, var(--accent-2) 0%, var(--accent) 24%, var(--accent) 100%); box-shadow: inset 0 -0.375rem 0.875rem rgb(var(--plum-rgb) / 0.25), 0 0.875rem 1.875rem -1rem rgb(var(--accent-rgb) / 0.8); }
-.flow__pill--image { background: var(--plum-2); }
-.flow__pill--image img { position: absolute; inset: -1.25rem; width: calc(100% + 2.5rem); height: calc(100% + 2.5rem); max-width: none; object-fit: cover; filter: blur(0.625rem) saturate(0.8); opacity: 0.3; }
-.flow__pill--image span { position: relative; }
+.flow__pill--blue { background: linear-gradient(180deg, var(--blue-ink) 0%, var(--blue-ink) 76%, var(--blue) 100%); box-shadow: inset 0 -0.375rem 0.875rem rgb(var(--plum-rgb) / 0.2); }
 .flow__pill--dark { background: var(--pill); color: var(--petal); box-shadow: inset 0 -0.375rem 0.875rem rgb(var(--dark-rgb) / 0.35); }
 .flow__sep { font-size: 1.375rem; color: var(--ink); }
 
@@ -385,9 +397,9 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
   padding: 0.5rem clamp(1.125rem, 3vw, 2.25rem); background: var(--white); border-radius: 1.125rem;
   box-shadow: 0 1.875rem 3.75rem -2.5rem rgb(var(--plum-rgb) / 0.35); counter-reset: step;
 }
-.steps li { position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding: 1.625rem 0 1.875rem; border-bottom: 1px dashed var(--dash); }
+.steps li { position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding: 1.625rem 0 1.875rem; border-bottom: 1px dashed var(--blue-line); }
 .steps li:last-child { border-bottom: 0; padding-bottom: 1.625rem; }
-.steps li::after { content: ""; position: absolute; right: 0; bottom: -0.375rem; width: 0.6875rem; height: 0.6875rem; border-radius: 62.4375rem; background: var(--accent); }
+.steps li::after { content: ""; position: absolute; right: 0; bottom: -0.375rem; width: 0.6875rem; height: 0.6875rem; border-radius: 62.4375rem; background: var(--blue-line); }
 .steps li:last-child::after { display: none; }
 .steps .bracket { flex: 0 0 4.5rem; padding-top: 0.1875rem; }
 .steps h3, .steps h4 { flex: 1 1 17.5rem; font-weight: 600; font-size: 1.1875rem; }
@@ -471,17 +483,22 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 
 /* Experience */
 .xp { padding: 0.375rem clamp(1.125rem, 3vw, 2.25rem); background: var(--white); border-radius: 1.125rem; box-shadow: 0 1.875rem 3.75rem -2.5rem rgb(var(--plum-rgb) / 0.35); }
-.xp > li { display: flex; flex-wrap: wrap; gap: 0.625rem 1.75rem; padding: 1.75rem 0; border-bottom: 1px dashed var(--dash); }
+/* Each row reads like the resume: the role with its dates on the right, then everything flush left. */
+.xp > li { padding: 1.75rem 0; border-bottom: 1px dashed var(--blue-line); }
 .xp > li:last-child { border-bottom: 0; }
-.xp__dates { flex: 0 0 10.625rem; font-size: 0.875rem; color: var(--muted); padding-top: 0.1875rem; }
-.xp__main { flex: 1 1 26.25rem; min-width: 0; }
-.xp__main h3 { font-size: 1.25rem; font-weight: 600; }
+.xp__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1.5rem; }
+.xp__head h3 { font-size: 1.25rem; font-weight: 600; }
+.xp__dates { margin-left: auto; font-size: 0.875rem; color: var(--muted); white-space: nowrap; }
 .xp__org { margin-top: 0.25rem; font-size: 0.96875rem; font-weight: 500; color: var(--ink-2); }
 .xp__org span { color: var(--muted); font-weight: 400; }
 .xp .ticks { margin-top: 0.75rem; }
 .xp .chips { margin-top: 0.875rem; }
-.xp .chips li { background: var(--card); }
-.xp__link { flex: 0 0 auto; align-self: flex-start; }
+.xp__link { margin-top: 0.5rem; }
+/* On phones the dates sit under the role. */
+@media (max-width: 600px) {
+  .xp__head { display: block; }
+  .xp__dates { display: block; margin: 0.25rem 0 0; }
+}
 
 
 /* Wins */
@@ -670,6 +687,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .list-plain strong { color: var(--ink); font-weight: 600; }
 .stack-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; padding: 1.25rem clamp(1.125rem, 3vw, 2.25rem); background: var(--white); border-radius: 1rem; }
 .stack-row .chips li { background: var(--card); }
+.skills .chips li, .project-row .chips li, .xp .chips li, .stack-row .chips li { background: var(--blue-tint); color: var(--plum); }
 
 .next {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.125rem; padding: clamp(1.5rem, 3vw, 2.5rem) var(--pad-x);
@@ -707,6 +725,8 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .grains .grain { fill: var(--grain); }
 .grains .grain-dot { fill: var(--grain-dot); }
 .grains .grain-edge { stroke: var(--white); }
+/* The "+" marks around the grain illustration are blue, to match it. */
+.plus-frame--blue .plus { color: var(--blue-ink); }
 
 @media (max-width: 600px) {
   .hero__actions { flex-wrap: nowrap; gap: 0.375rem; }

@@ -88,7 +88,7 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
     <p class="flow">
       <span class="flow__pill flow__pill--accent">{story.pills[0]}</span>
       <span class="flow__sep" aria-hidden="true">»</span>
-      <span class="flow__pill flow__pill--image"><img src="/images/projects/urja-setu-dashboard.webp" alt="" aria-hidden="true" width="800" height="500" loading="lazy" /><span>{story.pills[1]}</span></span>
+      <span class="flow__pill flow__pill--blue">{story.pills[1]}</span>
       <span class="flow__sep" aria-hidden="true">»</span>
       <span class="flow__pill flow__pill--dark">{story.pills[2]}</span>
     </p>
@@ -193,7 +193,7 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
             ))}
           </div>
         </div>
-        <div class="project-row__art plus-frame">
+        <div class={`project-row__art plus-frame${f.art === "grains" ? " plus-frame--blue" : ""}`}>
           <Plus />
           {f.art === "grains" && (
             <div class="art-grains"><GrainField /><p>How the device sees sand. Illustration.</p></div>
@@ -223,7 +223,7 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
       <Slider label="More things I've made">
         <div slot="head">
           <h3 class="h-sub">More things I've made</h3>
-          <p class="intro" style="margin-top: 0.375rem">Side projects, hardware and research in progress.</p>
+          <p class="intro" style="margin-top: 0.375rem">Side projects, hardware and hackathon builds.</p>
         </div>
         {moreWork.map((m) => {
           const p = m.page ? projectBySlug(m.page) : null;
@@ -275,23 +275,17 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
         const link = docLink(x.doc);
         return (
           <li>
-            <span class="xp__dates">{x.dates}</span>
-            <div class="xp__main">
-              <h3>{x.role}</h3>
-              <p class="xp__org">{x.org}, <span>{x.place}</span></p>
-              <ul class="ticks">{x.points.map((t) => <li>{t}</li>)}</ul>
-              <ul class="chips">{x.tags.map((t) => <li>{t}</li>)}</ul>
-            </div>
+            <div class="xp__head"><h3>{x.role}</h3><span class="xp__dates">{x.dates}</span></div>
+            <p class="xp__org">{x.org}, <span>{x.place}</span></p>
+            <ul class="ticks">{x.points.map((t) => <li>{t}</li>)}</ul>
+            <ul class="chips">{x.tags.map((t) => <li>{t}</li>)}</ul>
             {link && <a class="arrow-link xp__link" href={link}>View certificate<span class="sr-only">, {x.org}</span><Icon name="arrow" size={14} stroke={2.2} /></a>}
           </li>
         );
       })}
       <li>
-        <span class="xp__dates">{education.dates}</span>
-        <div class="xp__main">
-          <h3>{education.role}</h3>
-          <p class="xp__org">{education.org}, <span>{education.text}</span></p>
-        </div>
+        <div class="xp__head"><h3>{education.role}</h3><span class="xp__dates">{education.dates}</span></div>
+        <p class="xp__org">{education.org}, <span>{education.text}</span></p>
       </li>
     </ol>
   </section>
