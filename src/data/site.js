@@ -103,7 +103,8 @@ export const path = {
   ],
 };
 
-const LAB_REPORT = "https://drive.google.com/file/d/1046IdlaNWKprkkVmfIpSB3f-iZ1MAdfc/view";
+// The signed lab report is now a certificate page on this site (it replaced a Google Drive link).
+const LAB_REPORT = "/certificates/coast-scan-lab-report-2025";
 
 // Featured projects on the home page, in this order, with the points shown there.
 export const featured = [

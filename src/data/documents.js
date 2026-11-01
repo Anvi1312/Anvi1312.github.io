@@ -164,6 +164,14 @@ const all = [
     about: "I presented our paper \"Marsquake Detection from Raw InSight Waveforms with a Hybrid Convolutional and Fourier Neural Operator\" at ICISHCT 2026, the International Conference on Intelligent, Secured and Human-Centered Technologies, on 29 and 30 October 2026.",
     ...f("icishct-2026-paper-presentation"),
   },
+  {
+    slug: "coast-scan-lab-report-2025", cat: "research", project: "coast-scan",
+    title: "Coast Scan lab validation, Sri Sairam Engineering College (Sediment Analysis Report)",
+    short: "Coast Scan, lab validation report",
+    issuer: "Department of Civil Engineering, Sri Sairam Engineering College, Chennai", date: "Dec 2025", sort: "2025-12",
+    about: "A sieve analysis of a Porbandar coast sand sample, carried out in the Civil Engineering Laboratory of Sri Sairam Engineering College and signed and stamped by the head of the department. We used it to check Coast Scan's grain size results against the standard lab method.",
+    ...f("coast-scan-lab-report-2025"),
+  },
 
   // Courses and training -------------------------------------------------------
   {

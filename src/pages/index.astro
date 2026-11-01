@@ -189,7 +189,7 @@ const teamPhoto = (() => { const d = docBySlug("sih-2025-grand-finale-photo"); r
           <div class="project-row__links">
             <a class="arrow-link" href={`/projects/${f.slug}`}>View details<span class="sr-only">, {f.title}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
             {(projectBySlug(f.slug)?.homeLinks || []).map((l) => (
-              <a class="arrow-link arrow-link--quiet" href={l.href} target="_blank" rel="noopener">{l.label}<span class="sr-only">, {f.title}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
+              <a class="arrow-link arrow-link--quiet" href={l.href} target={/^https?:/.test(l.href) ? "_blank" : undefined} rel={/^https?:/.test(l.href) ? "noopener" : undefined}>{l.label}<span class="sr-only">, {f.title}</span><Icon name="arrow" size={14} stroke={2.2} /></a>
             ))}
           </div>
         </div>

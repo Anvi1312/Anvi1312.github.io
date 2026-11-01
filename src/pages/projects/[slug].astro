@@ -40,7 +40,7 @@ const eyebrow = (text) => `${String(++n).padStart(2, "0")}, ${text}`;
       <p class="p-hero__lead">{p.lead}</p>
       {p.badge && <p class="p-hero__badge"><span class="tag-pill tag-pill--glass">{p.badge}</span></p>}
       <div class="p-hero__actions">
-        {firstLink && <Btn href={firstLink.href} external variant="white">{firstLink.label}</Btn>}
+        {firstLink && <Btn href={firstLink.href} external={/^https?:/.test(firstLink.href)} variant="white">{firstLink.label}</Btn>}
         {hasSteps && <Btn href="#how" variant={firstLink ? "glass" : "white"} icon="right">How it works</Btn>}
       </div>
     </div>
@@ -106,7 +106,7 @@ const eyebrow = (text) => `${String(++n).padStart(2, "0")}, ${text}`;
             <div class={`result${r.style === "solid" ? " result--solid" : ""}`}>
               {r.value && <strong>{r.value}</strong>}
               <p>{r.text}</p>
-              {r.link && <a class="arrow-link" href={r.link.href} target="_blank" rel="noopener">{r.link.label}<Icon name="arrow" size={14} stroke={2.2} /></a>}
+              {r.link && <a class="arrow-link" href={r.link.href} target={/^https?:/.test(r.link.href) ? "_blank" : undefined} rel={/^https?:/.test(r.link.href) ? "noopener" : undefined}>{r.link.label}<Icon name="arrow" size={14} stroke={2.2} /></a>}
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ const eyebrow = (text) => `${String(++n).padStart(2, "0")}, ${text}`;
   {(p.links || []).length > 1 && (
     <section class="stack-row" aria-label="Links">
       <p class="label">Links</p>
-      <div class="chips">{p.links.map((l) => <a class="btn btn--line" href={l.href} target="_blank" rel="noopener">{l.label}</a>)}</div>
+      <div class="chips">{p.links.map((l) => <a class="btn btn--line" href={l.href} target={/^https?:/.test(l.href) ? "_blank" : undefined} rel={/^https?:/.test(l.href) ? "noopener" : undefined}>{l.label}</a>)}</div>
     </section>
   )}
 

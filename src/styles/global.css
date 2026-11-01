@@ -142,7 +142,7 @@ main { display: flex; flex-direction: column; gap: var(--gap); }
 .section--white { background: var(--white); }
 .section--dark { background: var(--dark); color: var(--white); }
 .section--pink { color: var(--plum); background: var(--pink-gradient); }
-#research { background: var(--research-gradient); }
+.section--pink#research { background: var(--research-gradient); }
 .section--fade { background: linear-gradient(180deg, var(--card) 0%, var(--card) 58%, var(--blush) 82%, var(--rose) 100%); }
 .lines::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
