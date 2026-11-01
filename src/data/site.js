@@ -37,7 +37,7 @@ export const hero = {
 
 export const story = {
   text:
-    "Over the past three years I have worked across research labs, national hackathons and international internships. At ISRO I developed deep learning models for planetary seismology, and the work became two papers accepted by Springer Nature journals. In our hackathon teams I have trained detection models, written backend APIs and designed the screens people actually use.",
+    "Over the past three years I have worked across research labs, national hackathons and international internships. At ISRO I developed deep learning models for planetary seismology, and the work became two papers accepted by Springer Nature journals, one in a Q1 journal indexed in Web of Science and Scopus. In our hackathon teams I have trained detection models, written backend APIs and designed the screens people actually use.",
   muted: "My strength is carrying an AI idea all the way, from the data and the model to a product that feels simple.",
   organisations: [
     ["ISRO", "dot"], ["Springer Nature", "square"], ["Smart India Hackathon", "dot"], ["AICTE", "square"], ["TetraTHON", "dot"],
@@ -47,14 +47,14 @@ export const story = {
 };
 
 export const stats = [
-  { value: "02", label: "Papers", text: "Accepted by Springer Nature journals, one as first author." },
+  { value: "02", label: "Papers", text: "Accepted by Springer Nature journals, one in a Q1 journal indexed in Web of Science and Scopus, and one as first author." },
   { value: "05", label: "Internships", text: "Including ISRO, plus remote roles with teams in the UK and Dubai." },
   { value: "68,766", label: "SIH 2025", text: "Teams in Smart India Hackathon 2025, where our team won." },
   { value: "03", label: "Design patents", text: "Filed with the Indian Patent Office, one accepted for registration and two under examination." },
 ];
 
 export const research = {
-  title: "Two papers on marsquakes, both accepted by Springer Nature journals.",
+  title: "Two papers on marsquakes, both accepted by Springer Nature journals, one in a Q1 journal indexed in Web of Science and Scopus.",
   intro:
     "At ISRO we studied seismic data from NASA's InSight lander on Mars. Both papers use a hybrid convolutional and Fourier neural operator model, which learns patterns in the frequency content of a signal as well as its shape.",
   papers: [
@@ -77,7 +77,8 @@ export const research = {
       role: "Second author",
       title: "Frequency-Family Classification of Marsquakes from Spectrograms with a Hybrid Convolutional and Fourier Neural Operator",
       authors: "Yash Shah, Anvi Panchal, Madhuri Chopade",
-      venue: "Education and Information Technologies, Springer Nature",
+      // These journal metrics belong to this paper only. Never give them to the Cureus paper above.
+      venue: "Education and Information Technologies, Springer Nature. Q1, indexed in Web of Science and Scopus, Impact Factor 7.2. Accepted for publication.",
       status: "Accepted for publication",
       text: "To our knowledge, the first supervised model that sorts marsquakes into all six Marsquake Service event types.",
       metrics: [
